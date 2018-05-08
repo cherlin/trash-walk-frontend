@@ -1,9 +1,5 @@
-
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  View,
-} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import {
   Container,
@@ -233,7 +229,7 @@ export default class SimpleMap extends Component {
       <Container style={styles.container}>
         <Header style={styles.header}>
           <Body>
-            <Title style={styles.title}>Simple Map</Title>
+            <Title style={styles.title}>Example Map</Title>
           </Body>
           <Right>
             <Switch onValueChange={this.onToggleEnabled} value={this.state.enabled} />
@@ -257,7 +253,7 @@ export default class SimpleMap extends Component {
             coordinates={this.state.coordinates}
             geodesic
             strokeColor="rgba(0,179,253, 0.6)"
-            strokeWidth={60}
+            strokeWidth={15}
             zIndex={0}
           />
         </MapView>

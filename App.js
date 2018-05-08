@@ -1,18 +1,17 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import Map from './Map';
+import { StyleSheet, View } from 'react-native';
+import ExampleMap from './ExampleMap';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
   },
 });
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Map />
+      <ExampleMap />
     </View>
   );
 }
