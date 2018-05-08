@@ -20,3 +20,13 @@ export default class EventConfirmation extends React.Component {
     );
   }
 }
+
+/*
+GET (userId, eventId): result of walk.
+If Badge: badge to state. (updatedUser)
+
+STATE (Redux Store):
+User: {
+  updatedUser.
+}
+*/
