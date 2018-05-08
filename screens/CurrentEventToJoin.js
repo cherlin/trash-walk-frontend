@@ -20,3 +20,23 @@ export default class CurrentEventToJoin extends React.Component {
     );
   }
 }
+
+/*
+GET (query: currentLocation, eventId) - every 5 seconds:
+* Coordinates for individual participants(?)
+* startTime
+* noOfParticipants
+* areaCovered
+
+STATE (Redux Store):
+CurrentEventToJoin {
+  event: {
+    coveredAreaPolygon: [[],[],[]] // Coords for polygon?
+    eventId: 123132n1kjk31
+    startTime: 123123123,
+    noOfParticipants: 16,
+    areaCovered: 123134,
+    participantLocations: [[1.234234, 1.123123123], [2.234234, 32.123123]] // ???
+  }
+}
+*/

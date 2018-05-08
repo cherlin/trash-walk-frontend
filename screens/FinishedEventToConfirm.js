@@ -20,3 +20,31 @@ export default class FinishedEventToConfirm extends React.Component {
     );
   }
 }
+
+/*
+GET (query: eventId, userId) - once:
+* startTime
+* endTime
+* personalAreaCovered
+* totalAreaCovered
+* personalDistanceWalked
+* totalDistanceWalked
+
+POST:
+1. If user adds picture, handle upload.
+2. If user cancels - (eventId, userId) - "soft delete" participation?
+3. If user confirms - (eventId, userId, comment).
+
+STATE (Redux Store):
+FinishedEventToConfirm {
+  event: {
+    eventId: 123132n1kjk31
+    startTime: 123123123,
+    endTime: 123123123,
+    personalAreaCovered: 12313
+    totalAreaCovered: 123123123
+    personalDistanceWalked: 123123
+    totalDistanceWalked: 1231333
+  }
+}
+*/

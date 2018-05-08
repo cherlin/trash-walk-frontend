@@ -7,3 +7,10 @@ export default class Profile extends React.Component {
     return <ProfileTabNavigator />;
   }
 }
+
+/*
+GET (query: userId):
+* Last walks
+* Stats
+* Badges
+*/
