@@ -64,18 +64,28 @@
 	<string>Allow trash-walk to use your camera</string>
 	<key>NSContactsUsageDescription</key>
 	<string>Allow trash-walk to access your contacts</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This app requires background tracking</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>This app requires background tracking</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Allow trash-walk to use your location</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Allow trash-walk to access your microphone</string>
 	<key>NSMotionUsageDescription</key>
-	<string>Allow trash-walk to access your device's accelerometer</string>
+	<string>Accelerometer use increases battery efficiency by intelligently toggling location-tracking</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Give trash-walk permission to save photos</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Give trash-walk permission to access your photos</string>
 	<key>NSRemindersUsageDescription</key>
 	<string>Allow trash-walk to access your reminders</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+		<string>fetch</string>
+		<string>location</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
