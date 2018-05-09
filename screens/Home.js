@@ -30,17 +30,23 @@ class Home extends React.Component {
         <View>
           <Text>Current walks in this area</Text>
           { this.props.currentEventsInArea.map(event => (
-            <Text>Start: {event.startTime}. Participant: {event.participants}</Text>))}
+            <Text key={event.eventId}>
+              Start: {event.startTime}. Participant: {event.participants}
+            </Text>))
+          }
           <Button title="Current (ongoing) walk" onPress={() => this.props.navigation.navigate('CurrentEventToJoin')} />
         </View>
         <View>
           <Text>Global Stats (Week)</Text>
-          <Text>Participants: {this.stats.global.week.participants}</Text>
+          <Text>Participants: {this.props.stats.global.week.participants}</Text>
         </View>
         <View>
           <Text>Previous walks in this area</Text>
           { this.props.previousEventsInArea.map(event => (
-            <Text>End: {event.endTime}. Participant: {event.participants}</Text>))}
+            <Text key={event.eventId}>
+              End: {event.endTime}. Participant: {event.participants}
+            </Text>))
+          }
           <Button title="Previous walk" onPress={() => this.props.navigation.navigate('FinishedEventDetail')} />
         </View>
       </View>
@@ -64,18 +70,13 @@ Home.propTypes = {
   getLocationEvents: PropTypes.func.isRequired,
   getLocationStats: PropTypes.func.isRequired,
   currentUserLocation: PropTypes.objectOf(PropTypes.number).isRequired,
-  currentEventsInArea: PropTypes.arrayOf(PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ])).isRequired,
-  previousEventsInArea: PropTypes.arrayOf(PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ])).isRequired,
+  currentEventsInArea: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)).isRequired,
+  previousEventsInArea: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)).isRequired,
   navigation: PropTypes.objectOf(PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.objectOf(PropTypes.any),
   ])).isRequired,
+  stats: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

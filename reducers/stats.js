@@ -1,62 +1,68 @@
 const defaultState = {
-  stats: {
-    global: {
-      week: {
-        participants: null,
-        timeSpent: null,
-        areaCleaned: null,
-      },
-      month: {
-        participants: null,
-        timeSpent: null,
-        areaCleaned: null,
-      },
-      year: {
-        participants: null,
-        timeSpent: null,
-        areaCleaned: null,
-      },
+  global: {
+    week: {
+      participants: 13,
+      timeSpent: 144,
+      areaCleaned: 123123,
     },
-    national: {
-      week: {
-        participants: null,
-        timeSpent: null,
-        areaCleaned: null,
-      },
-      month: {
-        participants: null,
-        timeSpent: null,
-        areaCleaned: null,
-      },
-      year: {
-        participants: null,
-        timeSpent: null,
-        areaCleaned: null,
-      },
+    month: {
+      participants: null,
+      timeSpent: null,
+      areaCleaned: null,
     },
-    local: {
-      week: {
-        participants: null,
-        timeSpent: null,
-        areaCleaned: null,
-      },
-      month: {
-        participants: null,
-        timeSpent: null,
-        areaCleaned: null,
-      },
-      year: {
-        participants: null,
-        timeSpent: null,
-        areaCleaned: null,
-      },
+    year: {
+      participants: null,
+      timeSpent: null,
+      areaCleaned: null,
     },
   },
-
+  national: {
+    week: {
+      participants: null,
+      timeSpent: null,
+      areaCleaned: null,
+    },
+    month: {
+      participants: null,
+      timeSpent: null,
+      areaCleaned: null,
+    },
+    year: {
+      participants: null,
+      timeSpent: null,
+      areaCleaned: null,
+    },
+  },
+  local: {
+    week: {
+      participants: null,
+      timeSpent: null,
+      areaCleaned: null,
+    },
+    month: {
+      participants: null,
+      timeSpent: null,
+      areaCleaned: null,
+    },
+    year: {
+      participants: null,
+      timeSpent: null,
+      areaCleaned: null,
+    },
+  },
 };
 
 const stats = (state = defaultState, action) => {
-  return state;
+  switch (action.type) {
+    case 'GET_LOCATION_STATS_REQUEST':
+      return { ...state, gettingLocationStats: true };
+    case 'GET_LOCATION_STATS_SUCCESS':
+      return { ...state, gettingLocationStats: false, ...action.data };
+    case 'GET_LOCATION_STATS_FAILURE':
+      return { ...state, gettingLocationStats: false, gettingLocationStatsFailed: true };
+    default:
+      return state;
+  }
 };
 
 export default stats;

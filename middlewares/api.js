@@ -1,15 +1,5 @@
-import { SERVER_BASE_URL } from '../config';
-
 export const API = Symbol('API');
-
-// const action = {
-//   type: 'GET_USERS',
-//   [API]: {
-//     url: '/users'
-//     method: 'POST',
-//     body:
-//   }
-// }
+export const SERVER_BASE_URL = 'http://localhost:3000';
 
 export const api = store => next => (action) => {
   if (action[API]) {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { StyleSheet, View } from 'react-native';
 import RootNavigator from './navigation/RootNavigator';
 import reducers from './reducers';
@@ -15,10 +15,12 @@ const styles = StyleSheet.create({
 
 const store = createStore(
   reducers,
-  applyMiddleware(api),
-  /* eslint no-underscore-dangle: ["error",
-   { "allow": ["__REDUX_DEVTOOLS_EXTENSION__"] } ] */
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  compose(
+    applyMiddleware(api),
+    /* eslint no-underscore-dangle: ["error",
+    { "allow": ["__REDUX_DEVTOOLS_EXTENSION__"] } ] */
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  ),
 );
 
 export default function App() {
