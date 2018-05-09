@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Text, View, StyleSheet, Button } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -13,7 +14,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class Home extends React.Component {
+class Home extends React.Component {
   render() {
     return (
       <View style={styles.container}>
@@ -27,9 +28,22 @@ export default class Home extends React.Component {
   }
 }
 
-/* 
+const mapStateToProps = state => ({
+  user: state.events.User.location,
+  currentEvents: state.events.currentEventsInArea,
+  latestEvents: state.events.latestEventsInArea,
+  globalStats: state.stats.global,
+  nationalStats: state.stats.national,
+  localStats: state.stats.local,
+});
 
-ASK: Permission to use GPS (always). 
+export default connect(mapStateToProps, null)(Home);
+
+
+
+/*
+
+ASK: Permission to use GPS (always).
 If [No] - give message to user that they will not be able to use the app properly.
 If [Yes] - get user position and save to state (User > currentLocation).
 
@@ -48,7 +62,7 @@ User: {
 HomeScreen: {
   events: {
     currentEventsInArea: [
-      { 
+      {
         eventId: 12ghj13ghj2jhg3
         image: 'beach',
         participants: 16,

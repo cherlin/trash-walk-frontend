@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Text, View, StyleSheet, Button } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -9,7 +10,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class ActiveEvent extends React.Component {
+class ActiveEvent extends React.Component {
   render() {
     return (
       <View style={styles.container}>
@@ -21,8 +22,15 @@ export default class ActiveEvent extends React.Component {
   }
 }
 
+const mapStateToProps = state => ({
+  event: state.events.CurrentEventToJoin,
+});
+
+
+export default connect(mapStateToProps, null)(ActiveEvent);
+
 /*
-POST: 
+POST:
 1. Join event (once) - (body: currentLocation, eventId). If OK:
 2. Locations... (every 5 seconds) - (body: locationData, eventId). When done:
 3. End event (once) - (body: endEventData, eventId) . If OK: Navigate to FinishedEventToConfirm.
