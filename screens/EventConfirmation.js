@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Text, View, StyleSheet, Button } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -9,7 +10,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class EventConfirmation extends React.Component {
+class EventConfirmation extends React.Component {
   render() {
     return (
       <View style={styles.container}>
@@ -20,6 +21,19 @@ export default class EventConfirmation extends React.Component {
     );
   }
 }
+
+
+
+
+const mapStateToProps = state => ({
+  user: state.events.User.updatedUser,
+});
+
+
+export default connect(mapStateToProps, null)(EventConfirmation);
+
+
+
 
 /*
 GET (userId, eventId): result of walk.
