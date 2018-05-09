@@ -4,7 +4,7 @@ import BackgroundGeolocation from 'react-native-background-geolocation';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Map from '../components/Map';
-import { TRACKER_HOST_URL } from '../config';
+import { SERVER_BASE_URL } from '../middlewares/api';
 
 const styles = StyleSheet.create({
   container: {
@@ -18,7 +18,7 @@ class ActiveEvent extends React.Component {
   componentDidMount() {
     BackgroundGeolocation.ready({
       distanceFilter: 10,
-      url: TRACKER_HOST_URL,
+      url: `${SERVER_BASE_URL}/location`,
       extras: { eventId: this.props.eventId },
       autoSync: true,
       stopOnTerminate: true,
@@ -37,7 +37,7 @@ class ActiveEvent extends React.Component {
       this.props.navigation.navigate('FinishedEventToConfirm');
     });
   }
-  
+
   render() {
     return (
       <View style={styles.container}>
