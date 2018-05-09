@@ -1,11 +1,4 @@
 const defaultState = {
-  User: {
-    location: {
-      currentLocation: [],
-      timeStamp: null,
-    },
-    updatedUser: '',
-  },
   CurrentEventToJoin: {
     coveredAreaPolygon: [],
     eventId: 12,
@@ -34,7 +27,7 @@ const defaultState = {
     personalDistanceWalked: null,
     totalDistanceWalked: null,
   },
-  latestEventsInArea: [
+  previousEventsInArea: [
     {
       eventId: null,
       image: '',
@@ -53,8 +46,7 @@ const defaultState = {
 };
 
 const events = (state = defaultState, action) => {
-    return state
-  }
-
+  return state;
+};
 
 export default events;

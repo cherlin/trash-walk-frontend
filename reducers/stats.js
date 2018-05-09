@@ -1,7 +1,3 @@
-
-// maybe  no need to define all properties but good to have for
-
-
 const defaultState = {
   stats: {
     global: {
