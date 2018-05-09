@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Text, View, StyleSheet, Button } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -9,7 +10,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class CurrentEventToJoin extends React.Component {
+class CurrentEventToJoin extends React.Component {
   render() {
     return (
       <View style={styles.container}>
@@ -20,6 +21,13 @@ export default class CurrentEventToJoin extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  event: state.events.CurrentEventToJoin,
+  login: state.login,
+});
+
+export default connect(mapStateToProps, null)(CurrentEventToJoin);
 
 /*
 GET (query: currentLocation, eventId) - every 5 seconds:

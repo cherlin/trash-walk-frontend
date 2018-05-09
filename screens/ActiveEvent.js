@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Button } from 'react-native';
 import BackgroundGeolocation from 'react-native-background-geolocation';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Map from '../components/Map';
 import { TRACKER_HOST_URL } from '../config';
 
@@ -13,7 +14,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class ActiveEvent extends React.Component {
+class ActiveEvent extends React.Component {
   componentDidMount() {
     BackgroundGeolocation.ready({
       distanceFilter: 10,
@@ -36,7 +37,7 @@ export default class ActiveEvent extends React.Component {
       this.props.navigation.navigate('FinishedEventToConfirm');
     });
   }
-
+  
   render() {
     return (
       <View style={styles.container}>
@@ -51,6 +52,10 @@ export default class ActiveEvent extends React.Component {
   }
 }
 
+const mapStateToProps = state => ({
+  event: state.events.CurrentEventToJoin,
+});
+
 ActiveEvent.defaultProps = {
   eventId: 'NOT SET',
 };
@@ -62,6 +67,8 @@ ActiveEvent.propTypes = {
     PropTypes.objectOf(PropTypes.any),
   ])).isRequired,
 };
+
+export default connect(mapStateToProps, null)(ActiveEvent);
 
 /*
 POST:
