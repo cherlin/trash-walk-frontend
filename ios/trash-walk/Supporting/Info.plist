@@ -64,9 +64,9 @@
 	<string>Allow trash-walk to use your camera</string>
 	<key>NSContactsUsageDescription</key>
 	<string>Allow trash-walk to access your contacts</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This app requires background tracking</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>This app requires background tracking</string>
+	<key>NSLocationAlwaysUsageDescription</key>
 	<string>This app requires background tracking</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Allow trash-walk to use your location</string>

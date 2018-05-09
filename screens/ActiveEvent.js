@@ -1,6 +1,10 @@
 import React from 'react';
+import { View, StyleSheet, Button } from 'react-native';
+import BackgroundGeolocation from 'react-native-background-geolocation';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Text, View, StyleSheet, Button } from 'react-native';
+import Map from '../components/Map';
+import { TRACKER_HOST_URL } from '../config';
 
 const styles = StyleSheet.create({
   container: {
@@ -11,12 +15,38 @@ const styles = StyleSheet.create({
 });
 
 class ActiveEvent extends React.Component {
+  componentDidMount() {
+    BackgroundGeolocation.ready({
+      distanceFilter: 10,
+      url: TRACKER_HOST_URL,
+      extras: { eventId: this.props.eventId },
+      autoSync: true,
+      stopOnTerminate: true,
+      startOnBoot: false,
+      // #### FOR DEVELOPMENT ####
+      reset: true,
+      debug: true,
+      logLevel: BackgroundGeolocation.LOG_LEVEL_VERBOSE,
+    });
+
+    BackgroundGeolocation.start();
+  }
+
+  stopEvent = () => {
+    BackgroundGeolocation.stop(() => {
+      this.props.navigation.navigate('FinishedEventToConfirm');
+    });
+  }
+  
   render() {
     return (
       <View style={styles.container}>
-        <Text>ActiveEvent Screen</Text>
-        <Button title="Paus Event" onPress={() => console.log('Event Paused')} />
-        <Button title="Stop Event" onPress={() => this.props.navigation.navigate('FinishedEventToConfirm')} />
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          <Map showUserLocation followUser />
+        </View>
+        <View style={{ height: 100, flexDirection: 'row', alignItems: 'center' }}>
+          <Button title="Stop Event" onPress={this.stopEvent} />
+        </View>
       </View>
     );
   }
@@ -26,12 +56,23 @@ const mapStateToProps = state => ({
   event: state.events.CurrentEventToJoin,
 });
 
+ActiveEvent.defaultProps = {
+  eventId: 'NOT SET',
+};
+
+ActiveEvent.propTypes = {
+  eventId: PropTypes.string,
+  navigation: PropTypes.objectOf(PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.objectOf(PropTypes.any),
+  ])).isRequired,
+};
 
 export default connect(mapStateToProps, null)(ActiveEvent);
 
 /*
 POST:
-1. Join event (once) - (body: currentLocation, eventId). If OK:
+1. Join event (once) - (body: currentLocation, eventId, userId). If OK:
 2. Locations... (every 5 seconds) - (body: locationData, eventId). When done:
 3. End event (once) - (body: endEventData, eventId) . If OK: Navigate to FinishedEventToConfirm.
 
