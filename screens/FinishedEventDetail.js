@@ -26,9 +26,7 @@ const mapStateToProps = state => ({
   event: state.events.FinishedEventDetail,
 });
 
-
 export default connect(mapStateToProps, null)(FinishedEventDetail);
-
 
 /*
 GET (query: eventId, userId) - once:

@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { StyleSheet, View } from 'react-native';
 import RootNavigator from './navigation/RootNavigator';
-import reducers from './reducers/index';
+import reducers from './reducers';
 
 const styles = StyleSheet.create({
   container: {
@@ -11,9 +11,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const store = createStore(reducers,
-   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
-
+const store = createStore(
+  reducers,
+  /* eslint no-underscore-dangle: ["error",
+   { "allow": ["__REDUX_DEVTOOLS_EXTENSION__"] } ] */
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+);
 
 export default function App() {
   return (

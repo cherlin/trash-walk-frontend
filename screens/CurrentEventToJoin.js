@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Text, View, StyleSheet, Button } from 'react-native';
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -28,12 +27,7 @@ const mapStateToProps = state => ({
   login: state.login,
 });
 
-
-
 export default connect(mapStateToProps, null)(CurrentEventToJoin);
-
-
-
 
 /*
 GET (query: currentLocation, eventId) - every 5 seconds:

@@ -59,11 +59,8 @@ const defaultState = {
 
 };
 
-
 const stats = (state = defaultState, action) => {
-    return state
-  }
-
-
+  return state;
+};
 
 export default stats;
