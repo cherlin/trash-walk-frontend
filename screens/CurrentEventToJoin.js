@@ -24,7 +24,6 @@ class CurrentEventToJoin extends React.Component {
 
 const mapStateToProps = state => ({
   event: state.events.CurrentEventToJoin,
-  login: state.login,
 });
 
 export default connect(mapStateToProps, null)(CurrentEventToJoin);

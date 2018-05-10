@@ -36,7 +36,7 @@ class ActiveEvent extends React.Component {
     BackgroundGeolocation.stop(() => {
       this.props.navigation.navigate('FinishedEventToConfirm');
     });
-  }
+  };
 
   render() {
     return (

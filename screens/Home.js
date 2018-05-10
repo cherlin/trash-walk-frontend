@@ -34,7 +34,10 @@ class Home extends React.Component {
               Start: {event.startTime}. Participant: {event.participants}
             </Text>))
           }
-          <Button title="Current (ongoing) walk" onPress={() => this.props.navigation.navigate('CurrentEventToJoin')} />
+          <Button
+            title="Current (ongoing) walk"
+            onPress={() => this.props.navigation.navigate('CurrentEventToJoin')}
+          />
         </View>
         <View>
           <Text>Global Stats (Week)</Text>
