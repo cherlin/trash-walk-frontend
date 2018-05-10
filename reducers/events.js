@@ -1,10 +1,10 @@
 const defaultState = {
   CurrentEventToJoin: {
     coveredAreaPolygon: [],
-    eventId: 12,
-    startTime: 'today',
-    noOfParticipants: 2,
-    areaCovered: '50KM',
+    eventId: 1,
+    startTime: '',
+    noOfParticipants: null,
+    areaCovered: '',
     participantLocations: [],
   },
   FinishedEventDetail: {
@@ -39,8 +39,8 @@ const defaultState = {
     {
       eventId: '123sdf324sdff',
       image: 'image',
-      participants: 12,
-      startTime: 112312313,
+      participants: null,
+      startTime: null,
     },
   ],
 };
@@ -53,6 +53,18 @@ const events = (state = defaultState, action) => {
       return { ...state, gettingLocationEvents: false };
     case 'GET_LOCATION_EVENTS_FAILURE':
       return { ...state, gettingLocationEventsFailed: true };
+    case 'GET_CURRENT_EVENT_REQUEST':
+      return { ...state, gettingCurrentEvent: true };
+    case 'GET_CURRENT_EVENT_SUCCESS':
+      return { ...state, gettingCurrentEvent: false, ...action.data };
+    case 'GET_CURRENT_EVENT_FAILURE':
+      return { ...state, gettingCurrentEventFailure: true };
+    case 'GET_FINISHED_EVENT_REQUEST':
+      return { ...state, gettingCurrentEvent: true };
+    case 'GET_FINISHED_EVENT_SUCCESS':
+      return { ...state, gettingCurrentEvent: false, ...action.data };
+    case 'GET_FINISHED_EVENT_FAILURE':
+      return { ...state, gettingCurrentEventFailure: true };
     default:
       return state;
   }
