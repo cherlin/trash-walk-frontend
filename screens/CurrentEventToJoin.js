@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Text, View, StyleSheet, Button } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -10,24 +11,30 @@ const styles = StyleSheet.create({
   },
 });
 
-class CurrentEventToJoin extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Button title="< Go Back" onPress={() => this.props.navigation.goBack()} />
-        <Text>CurrentEventToJoin Screen</Text>
-        <Button title="Join Event" onPress={() => this.props.navigation.navigate('ActiveEvent')} />
-      </View>
-    );
-  }
+function CurrentEventToJoin(props) {
+  const { navigate, goBack } = props.navigation;
+  return (
+    <View style={styles.container}>
+      <Button title="< Go Back" onPress={() => goBack()} />
+      <Text>CurrentEventToJoin (id: {props.eventId}) Screen</Text>
+      <Button title="Join Event" onPress={() => navigate('ActiveEvent')} />
+    </View>
+  );
 }
 
 const mapStateToProps = state => ({
-  event: state.events.CurrentEventToJoin,
-  login: state.login,
+  eventId: state.currentEvent.eventId,
 });
 
-export default connect(mapStateToProps, null)(CurrentEventToJoin);
+CurrentEventToJoin.propTypes = {
+  eventId: PropTypes.string.isRequired,
+  navigation: PropTypes.objectOf(PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.objectOf(PropTypes.any),
+  ])).isRequired,
+};
+
+export default connect(mapStateToProps)(CurrentEventToJoin);
 
 /*
 GET (query: currentLocation, eventId) - every 5 seconds:

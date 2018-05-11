@@ -15,6 +15,10 @@ const styles = StyleSheet.create({
     fontSize: 30,
     margin: 40,
   },
+  heading: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
 });
 
 class Home extends React.Component {
@@ -24,24 +28,25 @@ class Home extends React.Component {
   }
 
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
         <Text style={styles.header}>Home Screen</Text>
-        <View>
-          <Text>Current walks in this area</Text>
+        <View style={styles.container}>
+          <Text style={styles.heading}>Current walks in this area</Text>
           { this.props.currentEventsInArea.map(event => (
             <Text key={event.eventId}>
-              Start: {event.startTime}. Participant: {event.participants}
+              Start: {event.startTime}. Participants: {event.participants}
             </Text>))
           }
-          <Button title="Current (ongoing) walk" onPress={() => this.props.navigation.navigate('CurrentEventToJoin')} />
+          <Button title="Current (ongoing) walk" onPress={() => navigate('CurrentEventToJoin', { eventId: 'event' })} />
         </View>
-        <View>
-          <Text>Global Stats (Week)</Text>
+        <View style={styles.container}>
+          <Text style={styles.heading}>Global Stats (Week)</Text>
           <Text>Participants: {this.props.stats.global.week.participants}</Text>
         </View>
-        <View>
-          <Text>Previous walks in this area</Text>
+        <View style={styles.container}>
+          <Text style={styles.heading}>Previous walks in this area</Text>
           { this.props.previousEventsInArea.map(event => (
             <Text key={event.eventId}>
               End: {event.endTime}. Participant: {event.participants}

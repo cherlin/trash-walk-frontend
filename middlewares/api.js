@@ -11,9 +11,9 @@ export const api = store => next => (action) => {
     } = action[API];
 
     fetch(`${SERVER_BASE_URL}${endpoint}`, {
-      method: 'GET' || method,
+      method: method || 'GET',
       body: JSON.stringify(body),
-      ...headers,
+      headers,
     })
       .then(result => result.json())
       .then((data) => {
