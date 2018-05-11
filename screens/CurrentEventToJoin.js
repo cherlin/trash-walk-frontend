@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Text, View, StyleSheet, Button } from 'react-native';
 import PropTypes from 'prop-types';
+import { Text, View, StyleSheet, Button } from 'react-native';
 import { getCurrentEvent } from '../actions/events';
 
 const styles = StyleSheet.create({
@@ -15,8 +15,7 @@ const styles = StyleSheet.create({
 class CurrentEventToJoin extends React.Component {
   componentDidMount() {
     setInterval(
-      () =>
-        this.props.getCurrentEvent(this.props.event.eventId),
+      () => this.props.getCurrentEvent(this.props.event.eventId),
       2000,
     );
   }
