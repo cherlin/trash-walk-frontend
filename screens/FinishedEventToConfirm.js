@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Text, View, StyleSheet, Button } from 'react-native';
+import { getFinishedEvent } from '../actions/events';
 
 const styles = StyleSheet.create({
   container: {
@@ -14,7 +15,10 @@ const styles = StyleSheet.create({
   render() {
     return (
       <View style={styles.container}>
-        <Text>FinishedEventToConfirm Screen</Text>
+        <Text>FinishedEventToConfirm Screen </Text>
+        <Text>Start Time {this.props.event.startTime}</Text>
+        <Text>Area Cleaned {this.props.event.personalAreaCovered}</Text>
+        <Text>Distance Walked {this.props.event.personalDistanceWalked}</Text>
         <Button title="Cancel" onPress={() => this.props.navigation.navigate('Home')} />
         <Button title="Confirm" onPress={() => this.props.navigation.navigate('EventConfirmation')} />
       </View>
@@ -22,12 +26,15 @@ const styles = StyleSheet.create({
   }
 }
 
+const mapDispatchToProps = dispatch => ({
+  getFinishedEvent: eventId => dispatch(getFinishedEvent(eventId)),
+});
+
 const mapStateToProps = state => ({
   event: state.events.FinishedEventToConfirm,
 });
 
-
-export default connect(mapStateToProps, null)(FinishedEventToConfirm);
+export default connect(mapStateToProps, mapDispatchToProps)(FinishedEventToConfirm);
 
 /*
 GET (query: eventId, userId) - once:

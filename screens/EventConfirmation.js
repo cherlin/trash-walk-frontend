@@ -23,17 +23,11 @@ class EventConfirmation extends React.Component {
 }
 
 
-
-
 const mapStateToProps = state => ({
   user: state.events.User.updatedUser,
 });
 
-
 export default connect(mapStateToProps, null)(EventConfirmation);
-
-
-
 
 /*
 GET (userId, eventId): result of walk.
