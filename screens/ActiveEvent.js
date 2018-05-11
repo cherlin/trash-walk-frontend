@@ -66,7 +66,7 @@ class ActiveEvent extends React.Component {
       latitudeDelta: LATITUDE_DELTA,
       longitudeDelta: LONGITUDE_DELTA,
     });
-  }
+  };
 
   stopEvent = async () => {
     await BackgroundGeolocation.stop();
