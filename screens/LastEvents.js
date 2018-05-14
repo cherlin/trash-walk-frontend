@@ -21,7 +21,7 @@ class LastEvents extends React.Component {
     return (
       <View style={styles.container}>
         <Text>LastEvents Screen</Text>
-        { this.props.lastWalks.map(event => (
+        { this.props.participations.map(event => (
           <Text key={event.eventId}>
             Finished Date: {event.endTime} Participant: {event.participants}
           </Text>
@@ -41,14 +41,14 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
-  user: state.user.userInfo,
-  lastWalks: state.user.lastWalks,
+  user: state.user,
+  participations: state.user.participations,
 });
 
 LastEvents.propTypes = {
   getUserProfile: PropTypes.func.isRequired,
   user: PropTypes.objectOf(PropTypes.any).isRequired,
-  lastWalks: PropTypes.arrayOf(PropTypes.any).isRequired,
+  participations: PropTypes.arrayOf(PropTypes.any).isRequired,
   navigation: PropTypes.objectOf(PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.objectOf(PropTypes.any),

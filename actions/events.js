@@ -26,16 +26,16 @@ export const createEvent = userId => ({
   },
 });
 
-export const confirmEvent = (userId, eventId, distance) => ({
+export const confirmEvent = (userId, eventId, distance, endTime) => ({
   type: 'CONFIRM_EVENT',
   [API]: {
     endpoint: '/event/end',
     method: 'POST',
     body: {
-      timestamp: Date.now(),
       userId,
       eventId,
       distance,
+      endTime,
     },
     headers: {
       'Content-Type': 'application/json',
@@ -48,5 +48,21 @@ export const getEvent = (eventId, userId) => ({
   [API]: {
     endpoint: `/event?eventId=${eventId}&userId=${userId}`,
     method: 'GET',
+  },
+});
+
+export const joinEvent = (userId, eventId, startTime) => ({
+  type: 'JOIN_EVENT',
+  [API]: {
+    endpoint: '/event/join',
+    method: 'POST',
+    body: {
+      userId,
+      eventId,
+      startTime,
+    },
+    headers: {
+      'Content-Type': 'application/json',
+    },
   },
 });

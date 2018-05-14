@@ -31,7 +31,7 @@ const defaultState = {
     {
       id: '123sdf324sdff',
       participants: 12,
-      startTime: 12312423423,
+      endTime: 12312423423,
       firstLocation: [],
     },
   ],
@@ -56,7 +56,11 @@ const events = (state = defaultState, action) => {
     case 'GET_LOCATION_EVENTS_REQUEST':
       return { ...state, gettingLocationEvents: true };
     case 'GET_LOCATION_EVENTS_SUCCESS':
-      return { ...state, gettingLocationEvents: false };
+      return {
+        ...state,
+        gettingLocationEvents: false,
+        ...action.data,
+      };
     case 'GET_LOCATION_EVENTS_FAILURE':
       return { ...state, gettingLocationEventsFailed: action.error };
 
@@ -101,6 +105,13 @@ const events = (state = defaultState, action) => {
           distance: action.distance,
         },
       };
+
+    case 'JOIN_EVENT_REQUEST':
+      return { ...state, joiningEvent: true };
+    case 'JOIN_EVENT_SUCCESS':
+      return { ...state, joiningEvent: false };
+    case 'JOIN_EVENT_FAILURE':
+      return { ...state, joiningEventFailed: action.error };
 
     case 'GET_EVENT_REQUEST':
       return { ...state, gettingCurrentEvent: true };

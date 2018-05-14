@@ -26,7 +26,7 @@ class FinishedEventToConfirm extends React.Component {
   }
 
   confirmEvent = () => {
-    this.props.confirmEvent(this.props.userId, this.props.eventId, this.props.distance);
+    this.props.confirmEvent(this.props.userId, this.props.eventId, this.props.distance, Date.now());
     this.props.navigation.navigate('EventConfirmation');
   }
 
@@ -140,7 +140,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  confirmEvent: (userId, eventId, distance) => dispatch(confirmEvent(userId, eventId, distance)),
+  confirmEvent: (userId, eventId, distance, endTime) => dispatch(confirmEvent(userId, eventId, distance, endTime)),
 });
 
 FinishedEventToConfirm.propTypes = {

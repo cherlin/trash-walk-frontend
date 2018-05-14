@@ -13,37 +13,35 @@ const styles = StyleSheet.create({
 });
 
 class CurrentEventToJoin extends React.Component {
-  componentDidMount() {
-    setInterval(
-      () => this.props.getCurrentEvent(this.props.event.eventId),
-      2000,
-    );
+  joinEvent = () => {
+    this.props.joinEvent(this.props.user.id, this.props.navigation.params.eventId, Date.now());
+    this.props.navigation.navigate('ActiveEvent');
   }
 
   render() {
+    const eventToJoin = this.props.events.find(event => event.id === this.props.navigation.params.eventId);
     return (
       <View style={styles.container}>
         <Button title="< Go Back" onPress={() => this.props.navigation.goBack()} />
-        <Text> Duration: {this.props.event.startTime}</Text>
-        <Text> Participants:{this.props.event.noOfParticipants}</Text>
-        <Text> Area covered:{this.props.event.areaCovered}</Text>
-        <Button title="Join Event" onPress={() => this.props.navigation.navigate('ActiveEvent')} />
+        <Text> Duration: {eventToJoin.startTime}</Text>
+        <Text> Participants:{eventToJoin.participants}</Text>
+        <Text> Area covered:{eventToJoin.areaCovered}</Text>
+        <Button title="Join Event" onPress={this.joinEvent} />
       </View>
     );
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  getCurrentEvent: eventId => dispatch(getCurrentEvent(eventId)),
+  joinEvent: (userId, eventId, startTime) => dispatch(joinEvent(userId, eventId, startTime)),
 });
 
 const mapStateToProps = state => ({
-  event: state.events.CurrentEventToJoin,
+  events: state.events.activeEvents,
 });
 
 CurrentEventToJoin.propTypes = {
-  getCurrentEvent: PropTypes.func.isRequired,
-  event: PropTypes.objectOf(PropTypes.any).isRequired,
+  joinEvent: PropTypes.func.isRequired,
   navigation: PropTypes.objectOf(PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.objectOf(PropTypes.any),
