@@ -16,6 +16,7 @@ class EventConfirmation extends React.Component {
       <View style={styles.container}>
         <Text>EventConfirmation Screen</Text>
         <Text>Well Done!</Text>
+        <Text>{this.props.confirmed ? 'CONFIRMED!' : 'NOT CONFIRMED'}</Text>
         <Button title='Cool!' onPress={() => this.props.navigation.navigate('Home')} />
       </View>
     );
@@ -24,7 +25,7 @@ class EventConfirmation extends React.Component {
 
 
 const mapStateToProps = state => ({
-  user: state.events.User.updatedUser,
+  confirmed: state.events.currentEvent.confirmed,
 });
 
 export default connect(mapStateToProps, null)(EventConfirmation);

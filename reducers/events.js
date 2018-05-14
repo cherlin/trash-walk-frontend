@@ -27,31 +27,32 @@ const defaultState = {
     personalDistanceWalked: null,
     totalDistanceWalked: null,
   },
-  previousEventsInArea: [
+  finishedEvents: [
     {
-      eventId: '123bsdf213',
-      image: 'image',
-      participants: 6,
-      endTime: 234234234,
+      id: '123sdf324sdff',
+      participants: 12,
+      startTime: 12312423423,
+      firstLocation: [],
     },
   ],
-  currentEventsInArea: [
+  activeEvents: [
     {
-      eventId: '123sdf324sdff',
-      image: 'image',
-      participants: null,
-      startTime: null,
+      id: '123sdf324sdff',
+      participants: 12,
+      startTime: 12312423423,
+      firstLocation: [],
     },
   ],
   currentEvent: {
     path: [],
-    id: 'initialEventID',
+    id: '',
     distance: 0,
   },
 };
 
 const events = (state = defaultState, action) => {
   switch (action.type) {
+    // Fired of for Home Screen "Current walks in this area" and "Previous walks in this area"
     case 'GET_LOCATION_EVENTS_REQUEST':
       return { ...state, gettingLocationEvents: true };
     case 'GET_LOCATION_EVENTS_SUCCESS':
@@ -59,8 +60,10 @@ const events = (state = defaultState, action) => {
     case 'GET_LOCATION_EVENTS_FAILURE':
       return { ...state, gettingLocationEventsFailed: action.error };
 
+    // Requests an event id to begin sending locations to.
     case 'CREATE_EVENT_REQUEST':
       return { ...state, creatingEvent: true };
+    // If this succeeds, we empty the currentEvents path and distance.
     case 'CREATE_EVENT_SUCCESS':
       return {
         ...state,
@@ -88,6 +91,7 @@ const events = (state = defaultState, action) => {
     case 'CONFIRM_EVENT_FAILURE':
       return { ...state, confirmingEvent: false, confirmingEventFailed: action.error };
 
+    // Continuously fired on active event, appending locations to the path drawn on the map.
     case 'ADD_EVENT_DATA_TO_CURRENT_EVENT':
       return {
         ...state,
@@ -98,18 +102,11 @@ const events = (state = defaultState, action) => {
         },
       };
 
-    case 'GET_CURRENT_EVENT_REQUEST':
+    case 'GET_EVENT_REQUEST':
       return { ...state, gettingCurrentEvent: true };
-    case 'GET_CURRENT_EVENT_SUCCESS':
+    case 'GET_EVENT_SUCCESS':
       return { ...state, gettingCurrentEvent: false, ...action.data };
-    case 'GET_CURRENT_EVENT_FAILURE':
-      return { ...state, gettingCurrentEventFailure: true };
-
-    case 'GET_FINISHED_EVENT_REQUEST':
-      return { ...state, gettingCurrentEvent: true };
-    case 'GET_FINISHED_EVENT_SUCCESS':
-      return { ...state, gettingCurrentEvent: false, ...action.data };
-    case 'GET_FINISHED_EVENT_FAILURE':
+    case 'GET_EVENT_FAILURE':
       return { ...state, gettingCurrentEventFailure: true };
     default:
       return state;

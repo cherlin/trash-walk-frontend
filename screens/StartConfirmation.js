@@ -15,9 +15,7 @@ const styles = StyleSheet.create({
 class StartConfirmation extends React.Component {
   startEvent = () => {
     this.props.createEvent(this.props.userId);
-    setTimeout(() => {
-      this.props.navigation.navigate('ActiveEvent');
-    }, 1000);
+    this.props.navigation.navigate('ActiveEvent');
   }
 
   render() {

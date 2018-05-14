@@ -43,18 +43,10 @@ export const confirmEvent = (userId, eventId, distance) => ({
   },
 });
 
-export const getCurrentEvent = eventId => ({
+export const getEvent = (eventId, userId) => ({
   type: 'GET_CURRENT_EVENT',
   [API]: {
-    endpoint: `/event?eventId=${eventId}`,
-    method: 'GET',
-  },
-});
-
-export const getFinishedEvent = eventId => ({
-  type: 'GET_FINISHED_EVENT',
-  [API]: {
-    endpoint: `/event?eventId=${eventId}`,
+    endpoint: `/event?eventId=${eventId}&userId=${userId}`,
     method: 'GET',
   },
 });
