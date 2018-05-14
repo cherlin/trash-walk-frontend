@@ -1,6 +1,52 @@
 # Trash Walk - Client (React Native)
 
-To be continued...
+## About
+
+Trash Walk is an app aimed at helping us make the world a cleaner place! It has two main purposes:
+
+1. Document the efforts made for everyone involved (and the world at large!)
+2. Make the activitity more gratifying to the trash walkers themselves by "gamification" and social functions.
+
+## Prerequisites
+
+Except for the regular suspects; git, Node, npm, you need these things to work on the Trash Walk app. Follow the instructions supplied below them or on their links to get them up and running before you continue with *Installation*.
+
+* Xcode (latest version, at least >9.3). Install from App Store.
+* [Cocoapods](https://cocoapods.org) - a dependency manager for Swift and Objective-C Cocoa projects. 
+  ````$ sudo gem install cocoapods````
+* The [Trash Walk backend](https://github.com/cherlin/trash-walk-backend) is highly recommended as well, if you want any sort of useful interaction with the app.
+
+## Installation
+
+1. Clone this repo and enter!
+
+   ````````
+   $ git clone https://github.com/cherlin/trash-walk-frontend.git
+   $ cd trash-walk-frontend
+   ````````
+
+2. Install dependencies.
+
+   ```
+   $ npm install
+   $ cd ios			# ! Change into the ios folder !
+   $ pod install
+   ```
+
+3. Run the **_trash-walk.xcworkspace_** file in Xcode (**NOT** the *trash-walk.xcodeproj*).
+
+4. Set up an **Identity** for the app under *General* in Xcode. You will need to pick a bundle name that will be unique to the particular certificate that you then have to generate under **Signing**
+
+5. Build the app! (click the Play-button in the top left corner when you have picked your target in the drop-down to the right of it.)
+
+   
+
+## Tech Stack
+
+* React Native (ejected from Expo)
+* Redux
+
+
 
 ## Developers
 
