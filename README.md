@@ -14,7 +14,13 @@ Except for the regular suspects; git, Node, npm, you need these things to work o
 * Xcode (latest version, at least >9.3). Install from App Store.
 * [Cocoapods](https://cocoapods.org) - a dependency manager for Swift and Objective-C Cocoa projects. 
   ````$ sudo gem install cocoapods````
+* [Expo XDE](https://www.expo.io) - the Expo development environment.
+  ````$ npm install -g exp````
+
+**Recommended!**
+
 * The [Trash Walk backend](https://github.com/cherlin/trash-walk-backend) is highly recommended as well, if you want any sort of useful interaction with the app.
+* [React Native Debugger](https://github.com/jhen0409/react-native-debugger) - a debugger built on the Chrome debugger, including React and Redux Dev Tools.
 
 ## Installation
 
@@ -33,18 +39,23 @@ Except for the regular suspects; git, Node, npm, you need these things to work o
    $ pod install
    ```
 
-3. Run the **_trash-walk.xcworkspace_** file in Xcode (**NOT** the *trash-walk.xcodeproj*).
+3. While in the ios folder, run ````exp start```` to start the Expo development environment that will build the JS bundle for your app.
 
-4. Set up an **Identity** for the app under *General* in Xcode. You will need to pick a bundle name that will be unique to the particular certificate that you then have to generate under **Signing**
+4. Run the **_trash-walk.xcworkspace_** file in Xcode (**NOT** the *trash-walk.xcodeproj*).
 
-5. Build the app! (click the Play-button in the top left corner when you have picked your target in the drop-down to the right of it.)
+5. Set up an **Identity** for the app under *General* in Xcode. You will need to pick a bundle name that will be unique to the particular certificate that you then have to generate under **Signing**
 
-   
+6. Build the app! (click the Play-button in the top left corner when you have picked your target in the drop-down to the right of it.)
+
+    
 
 ## Tech Stack
 
 * React Native (ejected from Expo)
 * Redux
+* Libraries:
+  * [React Native Background Geolocation](https://github.com/transistorsoft/react-native-background-geolocation)
+  * [React Native Maps](https://github.com/react-community/react-native-maps)
 
 
 
