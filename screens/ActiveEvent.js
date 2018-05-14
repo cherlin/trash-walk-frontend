@@ -23,17 +23,20 @@ class ActiveEvent extends React.Component {
     super(props);
 
     this.state = {
-      showUserLocation: false,
+      showsUserLocation: false,
+      isMoving: false,
     };
   }
 
   componentDidMount() {
+    BackgroundGeolocation.on('location', this.onLocation);
+    BackgroundGeolocation.on('motionchange', this.onMotionChange);
+    BackgroundGeolocation.resetOdometer();
     BackgroundGeolocation.configure({
       desiredAccuracy: 0,
       desiredOdometerAccuracy: 20,
       distanceFilter: 10,
       url: `${SERVER_BASE_URL}/event/update`,
-      extras: { userId: this.props.userId, eventId: this.props.eventId },
       autoSync: true,
       stopOnTerminate: true,
       startOnBoot: false,
@@ -45,16 +48,30 @@ class ActiveEvent extends React.Component {
       logLevel: BackgroundGeolocation.LOG_LEVEL_VERBOSE,
       // #### END: FOR DEVELOPMENT ####
     });
-    BackgroundGeolocation.resetOdometer();
-    BackgroundGeolocation.on('location', this.onLocation);
-    BackgroundGeolocation.start(() => {
-      this.setState({ showUserLocation: true });
-    });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.eventId !== prevProps.eventId) {
+      this.startEvent();
+    }
+  }
+
+  componentWillUnmount() {
+    BackgroundGeolocation.stop();
+    BackgroundGeolocation.removeAllListeners();
   }
 
   onLocation = ({ coords: { latitude, longitude }, odometer }) => {
     this.setCenter({ latitude, longitude });
-    this.props.addEventDataToCurrentEvent({ latitude, longitude }, odometer);
+    if (this.state.isMoving) {
+      this.props.addEventDataToCurrentEvent({ latitude, longitude }, odometer);
+    }
+  }
+
+  onMotionChange = (isMoving) => {
+    if (isMoving) {
+      this.setState({ isMoving: true });
+    }
   }
 
   setCenter({ latitude, longitude }) {
@@ -66,7 +83,15 @@ class ActiveEvent extends React.Component {
       latitudeDelta: LATITUDE_DELTA,
       longitudeDelta: LONGITUDE_DELTA,
     });
-  };
+  }
+
+  startEvent = async () => {
+    await BackgroundGeolocation.setConfig({
+      extras: { eventId: this.props.eventId, userId: this.props.userId },
+    });
+    await BackgroundGeolocation.start();
+    this.setState({ showsUserLocation: true });
+  }
 
   stopEvent = async () => {
     await BackgroundGeolocation.stop();
@@ -81,7 +106,7 @@ class ActiveEvent extends React.Component {
           <MapView
             ref={(c) => { this.mapRef = c; }}
             style={{ flex: 1 }}
-            showsUserLocation={this.state.showUserLocation}
+            showsUserLocation={this.state.showsUserLocation}
             followsUserLocation={false}
             scrollEnabled
             showsMyLocationButton={false}

@@ -34,16 +34,18 @@ class Home extends React.Component {
         <Text style={styles.header}>Home Screen</Text>
         <View style={styles.container}>
           <Text style={styles.heading}>Current walks in this area</Text>
-          { this.props.currentEventsInArea.map(event => (
-            <Text key={event.eventId}>
+          { this.props.currentEventsInArea.length
+            ? this.props.currentEventsInArea.map(event => (
+              <Text key={event.eventId}>
               Start: {event.startTime}. Participants: {event.participants}
-            </Text>))
+              </Text>))
+            : <Text>No current events in this area!</Text>
           }
           <Button title="Current (ongoing) walk" onPress={() => navigate('CurrentEventToJoin', { eventId: 'event' })} />
         </View>
         <View style={styles.container}>
           <Text style={styles.heading}>Global Stats (Week)</Text>
-          <Text>Participants: {this.props.stats.global.week.participants}</Text>
+          <Text>Participants: {this.props.stats.week.participants}</Text>
         </View>
         <View style={styles.container}>
           <Text style={styles.heading}>Previous walks in this area</Text>
