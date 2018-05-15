@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { StyleSheet, View } from 'react-native';
-import { Font } from 'expo';
+import Expo from 'expo';
 import RootNavigator from './navigation/RootNavigator';
 import reducers from './reducers';
 
