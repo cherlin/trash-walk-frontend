@@ -15,13 +15,13 @@ export default createMaterialTopTabNavigator(
     Statistics: {
       screen: Statistics,
       navigationOptions: {
-        tabBarLabel: 'Statitics',
+        tabBarLabel: 'Statistics',
       },
     },
     Achievements: {
       screen: Achievements,
       navigationOptions: {
-        tabBarLabel: 'Achievements',
+        tabBarLabel: 'Badges',
       },
     },
   },
@@ -30,13 +30,19 @@ export default createMaterialTopTabNavigator(
     animationEnabled: true,
     swipeEnabled: true,
     tabBarOptions: {
+      activeTintColor: '#53ad93',
+      inactiveTintColor: '#9b9b9b',
+      upperCaseLabel: false,
+      indicatorStyle: {
+        backgroundColor: '#53ad93',
+      },
       labelStyle: {
-        fontSize: 12,
-        color: '#000'
+        fontSize: 14,
+        fontFamily: 'MontserratSemiBold',
       },
       style: {
-        paddingTop: 30,
         backgroundColor: '#fff',
+        borderBottomWidth: 0,
       },
     },
   },
