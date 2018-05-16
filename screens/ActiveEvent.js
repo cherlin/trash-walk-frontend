@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Button } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Image, Text } from 'react-native';
 import BackgroundGeolocation from 'react-native-background-geolocation';
 import MapView, { Polyline } from 'react-native-maps';
 import PropTypes from 'prop-types';
@@ -7,9 +7,68 @@ import { connect } from 'react-redux';
 import { addEventDataToCurrentEvent } from '../actions/events';
 import { SERVER_BASE_URL } from '../middlewares/api';
 
+import stopBt from '../assets/buttons/bt-stop.png';
+import pauseBt from '../assets/buttons/bt-pause.png';
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    backgroundColor: '#fff',
+  },
+  detailsContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: 16,
+    marginBottom: 44,
+  },
+  detailsText: {
+    color: '#a4c3c6',
+    fontFamily: 'MontserratSemiBold',
+    fontSize: 36,
+    textAlign: 'center',
+  },
+  detailsTitle: {
+    color: '#9b9b9b',
+    fontFamily: 'MontserratRegular',
+    fontSize: 13,
+    textAlign: 'center',
+  },
+  btContainer: {
+    height: 100,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 40,
+    marginLeft: 80,
+    marginRight: 80,
+  },
+  pauseBtContainer: {
+    backgroundColor: '#E36060',
+    width: 80,
+    height: 80,
+    borderRadius: 100,
+    shadowOpacity: 0.2,
+    shadowRadius: 30,
+    shadowColor: '#000',
+    shadowOffset: { height: 2, width: 0 },
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  stopBtContainer: {
+    backgroundColor: '#53ad93',
+    width: 80,
+    height: 80,
+    borderRadius: 100,
+    shadowOpacity: 0.2,
+    shadowRadius: 30,
+    shadowColor: '#000',
+    shadowOffset: { height: 2, width: 0 },
+    display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -124,8 +183,27 @@ class ActiveEvent extends React.Component {
             />
           </MapView>
         </View>
-        <View style={{ height: 100, flexDirection: 'row', alignItems: 'center' }}>
-          <Button title="Stop Event" onPress={this.stopEvent} />
+        <View style={styles.detailsContainer}>
+          <View>
+            <Text style={styles.detailsText}>0:00</Text>
+            <Text style={styles.detailsTitle}>Time Elapsed</Text>
+          </View>
+          <View>
+            <Text style={styles.detailsText}>0</Text>
+            <Text style={styles.detailsTitle}>Participants</Text>
+          </View>
+          <View>
+            <Text style={styles.detailsText}>0km</Text>
+            <Text style={styles.detailsTitle}>Area Covered</Text>
+          </View>
+        </View>
+        <View style={styles.btContainer}>
+          <TouchableOpacity style={styles.pauseBtContainer} onPress={this.pauseEvent}>
+            <Image source={pauseBt} style={styles.pauseBt} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.stopBtContainer} onPress={this.stopEvent}>
+            <Image source={stopBt} style={styles.stopBt} />
+          </TouchableOpacity>
         </View>
       </View>
     );
