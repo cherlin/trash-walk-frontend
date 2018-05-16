@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 import { Facebook } from 'expo';
 import { Button } from 'react-native-elements';
 import { loginUser } from '../actions/user';
-const backgroundImage  = require('../assets/images/login-bg.png');
+
+const backgroundImage = require('../assets/images/login-bg.png');
 
 const styles = StyleSheet.create({
   container: {
@@ -32,19 +33,17 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontFamily: 'MontserratRegular',
     fontSize: 25,
-
+    marginLeft: 25,
   },
   text_header: {
     color: '#fff',
     fontFamily: 'MontserratExtraBold',
     fontSize: 50,
-
   },
   text_bottom: {
     color: '#fff',
     fontFamily: 'MontserratRegular',
     fontSize: 14,
-
   },
   innerview: {
     marginBottom: 400,
@@ -93,7 +92,7 @@ class Login extends React.Component {
         <View style={styles.container}>
           <View style={styles.innerview}>
             <Text style={styles.text_header}>Trash Walk</Text>
-            <Text style={styles.text}>    keep the earth clean</Text>
+            <Text style={styles.text}>keep the earth clean</Text>
           </View>
           <Button
             title="Continue without login"
@@ -110,11 +109,9 @@ class Login extends React.Component {
             buttonStyle={styles.login_button__fb}
             onPress={this.loginUser}
           />
-          <Text style={styles.text_bottom}>    Already have an account? Log in.</Text>
-
+          <Text style={styles.text_bottom}>Already have an account? Log in.</Text>
         </View>
       </ImageBackground>
-
     );
   }
 }
