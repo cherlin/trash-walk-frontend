@@ -1,24 +1,24 @@
 import React from 'react';
-import { Text, View, StyleSheet, TouchableHighlight, ImageBackground } from 'react-native';
+import { Text, ScrollView, View, StyleSheet, TouchableHighlight, ImageBackground } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { getUserProfile } from '../actions/user';
+
+// Will be dynamic eventually, but for now - static image.
+const image1 = require('../assets/images/last-walks-1.png');
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    paddingTop: 30,
+    backgroundColor: '#fff',
     alignItems: 'center',
+    paddingBottom: 24,
   },
   image: {
     width: 343,
     height: 152,
   },
   imageView: {
-    width: 343,
-    height: 152,
-    padding: 0,
+    marginTop: 24,
     borderRadius: 2,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -31,38 +31,53 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
   },
-  text: {
+  imageText: {
     color: '#fff',
     fontFamily: 'MontserratSemiBold',
     fontSize: 14,
   },
+  text: {
+    fontSize: 18,
+    fontFamily: 'MontserratMedium',
+    color: '#9b9b9b',
+    marginBottom: 5,
+  },
 });
 
 class LastEvents extends React.Component {
-
   onPressEvent = (eventId) => {
     this.props.navigation.navigate('FinishedEventDetail', { eventId });
   }
 
   render() {
     return (
-      <View style={styles.container}>
-        { this.props.participations.length
-          ? this.props.participations.map(event => (
-            <TouchableHighlight key={event.id} onPress={() => this.onPressEvent(event.id)}>
+      this.props.participations.length
+        ?
+          <ScrollView contentContainerStyle={styles.container} style={{ backgroundColor: '#fff' }}>
+            { this.props.participations.map(event => (
               <View key={event.id} style={styles.imageView}>
-                <ImageBackground source={require('../assets/images/last-walks-1.png')} style={styles.image} imageStyle={{ borderRadius: 2 }}>
-                  <View style={styles.textView}>
-                    <Text style={styles.text}>{event.distance > 1000 ? `${(event.distance / 1000).toFixed(1)} km` : `${event.distance} m` }</Text>
-                    <Text style={styles.text}>{moment(event.endTime).fromNow()}</Text>
-                  </View>
-                </ImageBackground>
+                <TouchableHighlight onPress={() => this.onPressEvent(event.id)}>
+                  <ImageBackground
+                    source={image1}
+                    style={styles.image}
+                    imageStyle={{ borderRadius: 2 }}
+                  >
+                    <View style={styles.textView}>
+                      <Text style={styles.imageText}>{event.distance > 1000 ? `${(event.distance / 1000).toFixed(1)} km` : `${event.distance} m` }</Text>
+                      <Text style={styles.imageText}>{moment(event.endTime).fromNow()}</Text>
+                    </View>
+                  </ImageBackground>
+                </TouchableHighlight>
               </View>
-            </TouchableHighlight>
-            ))
-          : <Text>You have no walks. Take a stroll maybe?</Text>
-        }
-      </View>
+              ))
+            }
+          </ScrollView>
+        :
+          <View style={[styles.container, { flex: 1, justifyContent: 'center' }]}>
+            <Text style={styles.text}>You have no walks.</Text>
+            <Text style={styles.text}>Take a stroll maybe?</Text>
+          </View>
+
     );
   }
 }
@@ -73,8 +88,6 @@ const mapStateToProps = state => ({
 });
 
 LastEvents.propTypes = {
-  getUserProfile: PropTypes.func.isRequired,
-  user: PropTypes.objectOf(PropTypes.any).isRequired,
   participations: PropTypes.arrayOf(PropTypes.any).isRequired,
   navigation: PropTypes.objectOf(PropTypes.oneOfType([
     PropTypes.func,
