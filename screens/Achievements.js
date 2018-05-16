@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, Image } from 'react-native';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 const styles = StyleSheet.create({
@@ -10,21 +11,22 @@ const styles = StyleSheet.create({
   },
 });
 
-class Achievements extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Achievements Screen</Text>
-        { this.props.badges.map(badge => (
-          <Text key={badge.badgeId}>
-            image: {badge.image} Covered: {badge.areaCovered} km
-          </Text>
-        ))
+function Achievements(props) {
+  return (
+    <View style={styles.container}>
+      { props.badges.length
+        ? props.badges.map(badge => (
+          <Image style={{ width: 50, height: 50 }} source={{ uri: badge.imageUrl }} />
+          ))
+        : <Text>No badges awarded yet! Keep on going.</Text>
       }
-      </View>
-    );
-  }
+    </View>
+  );
 }
+
+Achievements.propTypes = {
+  badges: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)).isRequired,
+};
 
 const mapStateToProps = state => ({
   badges: state.user.badges,

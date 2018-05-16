@@ -28,27 +28,33 @@ class Home extends React.Component {
   }
 
   render() {
+    console.log('#### Finished', this.props.finishedEvents);
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
         <Text style={styles.header}>Home Screen</Text>
         <View style={styles.container}>
           <Text style={styles.heading}>Current walks in this area</Text>
-          { this.props.currentEventsInArea.map(event => (
-            <Text key={event.eventId}>
-              Start: {event.startTime}. Participants: {event.participants}
-            </Text>))
+          { this.props.activeEvents.length
+            ? this.props.activeEvents.map(event => (
+              <View>
+                <Text key={event.id}>
+                Start: {event.startTime}. Participants: {event.participants}
+                </Text>
+                <Button title="Current (ongoing) walk" onPress={() => navigate('CurrentEventToJoin', { eventId: event.id })} />
+              </View>
+              ))
+            : <Text>No current events in this area!</Text>
           }
-          <Button title="Current (ongoing) walk" onPress={() => navigate('CurrentEventToJoin', { eventId: 'event' })} />
         </View>
         <View style={styles.container}>
           <Text style={styles.heading}>Global Stats (Week)</Text>
-          <Text>Participants: {this.props.stats.global.week.participants}</Text>
+          <Text>Participants: {this.props.stats.week.participants}</Text>
         </View>
         <View style={styles.container}>
           <Text style={styles.heading}>Previous walks in this area</Text>
-          { this.props.previousEventsInArea.map(event => (
-            <Text key={event.eventId}>
+          { this.props.finishedEvents.map(event => (
+            <Text key={event.id}>
               End: {event.endTime}. Participant: {event.participants}
             </Text>))
           }
@@ -61,8 +67,8 @@ class Home extends React.Component {
 
 const mapStateToProps = state => ({
   currentUserLocation: state.user.location,
-  currentEventsInArea: state.events.currentEventsInArea,
-  previousEventsInArea: state.events.previousEventsInArea,
+  activeEvents: state.events.activeEvents,
+  finishedEvents: state.events.finishedEvents,
   stats: state.stats,
 });
 
@@ -75,8 +81,8 @@ Home.propTypes = {
   getLocationEvents: PropTypes.func.isRequired,
   getLocationStats: PropTypes.func.isRequired,
   currentUserLocation: PropTypes.objectOf(PropTypes.number).isRequired,
-  currentEventsInArea: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)).isRequired,
-  previousEventsInArea: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)).isRequired,
+  activeEvents: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)).isRequired,
+  finishedEvents: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)).isRequired,
   navigation: PropTypes.objectOf(PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.objectOf(PropTypes.any),

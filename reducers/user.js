@@ -11,26 +11,11 @@ const defaultState = {
     longitude: 42.13132,
   },
   id: '26076206-cfc2-47de-b8af-f15daca91aa7',
-
-  lastWalks: [
-    {
-      eventId: '123bsdf213',
-      image: 'image',
-      participants: 6,
-      endTime: 120,
-    },
-  ],
   stats: {
-    totalTime: 1234,
-    totalDist: 1345,
+    totalTime: null,
+    totalDistance: null,
+    totalArea: null,
   },
-  badges: [
-    {
-      image: 'image',
-      badgeId: 12,
-      areaCovered: 13,
-    },
-  ],
 };
 
 const user = (state = defaultState, action) => {

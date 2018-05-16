@@ -1,54 +1,19 @@
 const defaultState = {
-  global: {
-    week: {
-      participants: 13,
-      timeSpent: 144,
-      areaCleaned: 123123,
-    },
-    month: {
-      participants: null,
-      timeSpent: null,
-      areaCleaned: null,
-    },
-    year: {
-      participants: null,
-      timeSpent: null,
-      areaCleaned: null,
-    },
+  week: {
+    distance: 12313,
+    participants: 13,
+    timeSpent: 144,
+    areaCleaned: 123123,
   },
-  national: {
-    week: {
-      participants: null,
-      timeSpent: null,
-      areaCleaned: null,
-    },
-    month: {
-      participants: null,
-      timeSpent: null,
-      areaCleaned: null,
-    },
-    year: {
-      participants: null,
-      timeSpent: null,
-      areaCleaned: null,
-    },
+  month: {
+    participants: null,
+    timeSpent: null,
+    areaCleaned: null,
   },
-  local: {
-    week: {
-      participants: null,
-      timeSpent: null,
-      areaCleaned: null,
-    },
-    month: {
-      participants: null,
-      timeSpent: null,
-      areaCleaned: null,
-    },
-    year: {
-      participants: null,
-      timeSpent: null,
-      areaCleaned: null,
-    },
+  year: {
+    participants: null,
+    timeSpent: null,
+    areaCleaned: null,
   },
 };
 
