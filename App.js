@@ -5,6 +5,7 @@ import { StyleSheet, View } from 'react-native';
 import { Font } from 'expo';
 import RootNavigator from './navigation/RootNavigator';
 import reducers from './reducers';
+import { saveState, loadState } from './localStorage';
 
 import { api } from './middlewares/api';
 
