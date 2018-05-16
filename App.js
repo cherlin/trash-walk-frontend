@@ -4,6 +4,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { StyleSheet, View } from 'react-native';
 import RootNavigator from './navigation/RootNavigator';
 import reducers from './reducers';
+import { saveState, loadState } from './localStorage';
 
 import { api } from './middlewares/api';
 
@@ -22,6 +23,12 @@ const store = createStore(
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
   ),
 );
+
+store.subscribe(() => {
+  saveState({
+    user: store.getState().user,
+  });
+});
 
 export default function App() {
   return (

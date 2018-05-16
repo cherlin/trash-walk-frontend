@@ -3,9 +3,9 @@ import LastEvents from '../screens/LastEvents';
 import Statistics from '../screens/Statistics';
 import Achievements from '../screens/Achievements';
 
-
 export default createMaterialTopTabNavigator(
   {
+
     LastEvents: {
       screen: LastEvents,
       navigationOptions: {
@@ -32,7 +32,7 @@ export default createMaterialTopTabNavigator(
     tabBarOptions: {
       labelStyle: {
         fontSize: 12,
-        color: '#000'
+        color: '#000',
       },
       style: {
         paddingTop: 30,

@@ -2,7 +2,6 @@ import React from 'react';
 import { Text, View, StyleSheet, Button } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getUserProfile } from '../actions/user';
 
 const styles = StyleSheet.create({
   container: {
@@ -13,9 +12,6 @@ const styles = StyleSheet.create({
 });
 
 class LastEvents extends React.Component {
-  componentDidMount() {
-    this.props.getUserProfile(this.props.user.userId);
-  }
 
   render() {
     return (
@@ -36,18 +32,12 @@ class LastEvents extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  getUserProfile: userId => dispatch(getUserProfile(userId)),
-});
-
 const mapStateToProps = state => ({
   user: state.user.userInfo,
   lastWalks: state.user.lastWalks,
 });
 
 LastEvents.propTypes = {
-  getUserProfile: PropTypes.func.isRequired,
-  user: PropTypes.objectOf(PropTypes.any).isRequired,
   lastWalks: PropTypes.arrayOf(PropTypes.any).isRequired,
   navigation: PropTypes.objectOf(PropTypes.oneOfType([
     PropTypes.func,
@@ -55,4 +45,4 @@ LastEvents.propTypes = {
   ])).isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LastEvents);
+export default connect(mapStateToProps)(LastEvents);
