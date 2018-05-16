@@ -1,4 +1,11 @@
 const defaultState = {
+  firstName: '',
+  lastName: '',
+  profilePicture: '',
+  email: '',
+  updatedAt: '',
+  createdAt: '',
+  token: '',
   location: {
     latitude: 2.13123,
     longitude: 42.13132,
@@ -31,6 +38,14 @@ const user = (state = defaultState, action) => {
       return { ...state, gettingUserProfile: false, ...action.data };
     case 'GET_USER_PROFILE_FAILURE':
       return { ...state, gettingUserProfile: false, gettingUserProfileFailed: true };
+    case 'LOGIN_USER_REQUEST':
+      return { ...state, loginUser: true };
+    case 'LOGIN_USER_SUCCESS':
+      return { ...state, ...action.data };
+    case 'LOGIN_USER_FAILURE':
+      return { ...state, loginUser: false };
+    case 'SAVE_TO_LOCALSTORE':
+      return { ...state, localStorage: { ...action.data } };
     default:
       return state;
   }

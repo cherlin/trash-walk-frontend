@@ -4,9 +4,9 @@ import LastEvents from '../screens/LastEvents';
 import Statistics from '../screens/Statistics';
 import Achievements from '../screens/Achievements';
 
-
 export default createMaterialTopTabNavigator(
   {
+
     LastEvents: {
       screen: LastEvents,
       navigationOptions: {

@@ -1,8 +1,10 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { connect } from 'react-redux';
 import ProfileTabNavigator from '../navigation/ProfileTabNavigator';
+import { Text, View } from 'react-native';
+import Test from './test.js';
 
-export default class Profile extends React.Component {
+class Profile extends React.Component {
   render() {
     return (
       <View style={{ display: 'flex', flex: 1 }}>
@@ -17,6 +19,13 @@ export default class Profile extends React.Component {
   }
 }
 
+
+const mapStateToProps = state => ({
+  userInfo: state.user.userInfo,
+});
+
+
+export default connect(mapStateToProps, null)(Profile);
 /*
 This file is currently not being rendered at all,
 since the Main Tab Navigator links directly to the

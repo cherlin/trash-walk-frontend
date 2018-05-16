@@ -10,6 +10,7 @@ export const api = store => next => (action) => {
       headers,
     } = action[API];
 
+    // if (accessToken) headers.authorization = `Bearer ${accessToken}`;
     fetch(`${SERVER_BASE_URL}${endpoint}`, {
       method: method || 'GET',
       body: JSON.stringify(body),
@@ -36,3 +37,12 @@ export const api = store => next => (action) => {
     next(action);
   }
 };
+
+
+// id: 23,
+// firstName: '',
+// lastName:'',
+// email:'',
+// updatedAt:'',
+// createdAt:'',
+// token:'',

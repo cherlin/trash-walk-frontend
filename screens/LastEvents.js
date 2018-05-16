@@ -39,9 +39,6 @@ const styles = StyleSheet.create({
 });
 
 class LastEvents extends React.Component {
-  componentDidMount() {
-    this.props.getUserProfile(this.props.user.userId);
-  }
 
   onPressEvent = (eventId) => {
     this.props.navigation.navigate('FinishedEventDetail', { eventId });
@@ -70,10 +67,6 @@ class LastEvents extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  getUserProfile: userId => dispatch(getUserProfile(userId)),
-});
-
 const mapStateToProps = state => ({
   user: state.user,
   participations: state.user.participations,
@@ -89,4 +82,4 @@ LastEvents.propTypes = {
   ])).isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LastEvents);
+export default connect(mapStateToProps)(LastEvents);
