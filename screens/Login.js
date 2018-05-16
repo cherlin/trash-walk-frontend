@@ -11,42 +11,45 @@ const backgroundImage = require('../assets/images/login-bg.png');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 50,
-    marginRight: 30,
   },
-  login_button__fb: {
-    backgroundColor: '#3D5A96',
-    height: 60,
-    width: 310,
-    padding: 10,
-    margin: 10,
+  header: {
+    marginTop: 51,
+    flex: 1,
+    alignItems: 'center',
+  },
+  footer: {
+    flex: 1,
+    marginBottom: 24,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+  backgroundImage: {
+    flex: 1,
+  },
+  loginButtonFb: {
+    backgroundColor: '#3c5898',
+    height: 48,
+    width: 288,
     justifyContent: 'center',
     borderRadius: 30,
   },
-  backgroundImage: {
-    alignItems: 'flex-end',
-    flex: 2,
-  },
-  text: {
+  subtitle: {
     color: '#fff',
     fontFamily: 'MontserratRegular',
-    fontSize: 25,
-    marginLeft: 25,
+    fontSize: 22,
   },
-  text_header: {
+  title: {
     color: '#fff',
     fontFamily: 'MontserratExtraBold',
-    fontSize: 50,
+    fontSize: 41,
   },
   text_bottom: {
     color: '#fff',
     fontFamily: 'MontserratRegular',
     fontSize: 14,
-  },
-  innerview: {
-    marginBottom: 400,
+    paddingTop: 16,
   },
 });
 
@@ -90,26 +93,24 @@ class Login extends React.Component {
         style={styles.backgroundImage}
       >
         <View style={styles.container}>
-          <View style={styles.innerview}>
-            <Text style={styles.text_header}>Trash Walk</Text>
-            <Text style={styles.text}>keep the earth clean</Text>
+          <View style={styles.header}>
+            <Text style={styles.title}>Trash Walk</Text>
+            <Text style={styles.subtitle}>keep the earth clean</Text>
           </View>
-          <Button
-            title="Continue without login"
-            onPress={() => this.props.navigation.navigate('Home')}
-          />
-          <Button
-            Button
-            icon={{
-            name: 'facebook',
-            type: 'font-awesome',
-          }}
-            fontFamily="MontserratBold"
-            title="Login with Facebook"
-            buttonStyle={styles.login_button__fb}
-            onPress={this.loginUser}
-          />
-          <Text style={styles.text_bottom}>Already have an account? Log in.</Text>
+          <View style={styles.footer}>
+            <Button
+              Button
+              icon={{
+              name: 'facebook',
+              type: 'font-awesome',
+            }}
+              fontFamily="MontserratBold"
+              title="Login with Facebook"
+              buttonStyle={styles.loginButtonFb}
+              onPress={this.loginUser}
+            />
+            <Text style={styles.text_bottom} onPress={() => this.props.navigation.navigate('Home')}>Already have an account? Log in.</Text>
+          </View>
         </View>
       </ImageBackground>
     );
