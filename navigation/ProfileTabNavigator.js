@@ -1,4 +1,5 @@
 import { createMaterialTopTabNavigator } from 'react-navigation';
+import { Constants } from 'expo';
 import LastEvents from '../screens/LastEvents';
 import Statistics from '../screens/Statistics';
 import Achievements from '../screens/Achievements';
@@ -43,6 +44,7 @@ export default createMaterialTopTabNavigator(
       style: {
         backgroundColor: '#fff',
         borderBottomWidth: 0,
+        paddingTop: Constants.statusBarHeight,
       },
     },
   },

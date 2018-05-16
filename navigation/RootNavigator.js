@@ -5,9 +5,9 @@ import MainTabNavigator from './MainTabNavigator';
 import CurrentEventToJoin from '../screens/CurrentEventToJoin';
 import ActiveEvent from '../screens/ActiveEvent';
 import FinishedEventToConfirm from '../screens/FinishedEventToConfirm';
-import StartConfirmation from '../screens/StartConfirmation';
 import EventConfirmation from '../screens/EventConfirmation';
 import FinishedEventDetail from '../screens/FinishedEventDetail';
+import ProfileTabNavigator from './ProfileTabNavigator';
 
 const RootStackNavigator = createStackNavigator({
   Login: {
@@ -18,12 +18,16 @@ const RootStackNavigator = createStackNavigator({
     screen: MainTabNavigator,
     navigationOptions: { header: () => null },
   },
+  Profile: {
+    screen: ProfileTabNavigator,
+    navigationOptions: { header: () => null },
+  },
   CurrentEventToJoin: {
     screen: CurrentEventToJoin,
     navigationOptions: { header: () => null },
   },
   StartConfirmation: {
-    screen: StartConfirmation,
+    screen: MainTabNavigator,
     navigationOptions: { header: () => null },
   },
   ActiveEvent: {
