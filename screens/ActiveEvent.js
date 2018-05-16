@@ -4,7 +4,7 @@ import BackgroundGeolocation from 'react-native-background-geolocation';
 import MapView, { Polyline } from 'react-native-maps';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addEventDataToCurrentEvent } from '../actions/events';
+import { addEventDataToActiveEvent } from '../actions/events';
 import { SERVER_BASE_URL } from '../middlewares/api';
 
 const styles = StyleSheet.create({
@@ -64,7 +64,7 @@ class ActiveEvent extends React.Component {
   onLocation = ({ coords: { latitude, longitude }, odometer }) => {
     this.setCenter({ latitude, longitude });
     if (this.state.isMoving) {
-      this.props.addEventDataToCurrentEvent({ latitude, longitude }, odometer);
+      this.props.addEventDataToActiveEvent({ latitude, longitude }, odometer);
     }
   }
 
@@ -116,7 +116,7 @@ class ActiveEvent extends React.Component {
             toolbarEnabled={false}
           >
             <Polyline
-              coordinates={this.props.currentEvent.path}
+              coordinates={this.props.activeEvent.path}
               strokeWidth={26}
               geodesic
               strokeColor="rgba(0,179,253, 0.6)"
@@ -133,25 +133,25 @@ class ActiveEvent extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  currentEvent: state.events.currentEvent,
-  eventId: state.events.currentEvent.id,
+  activeEvent: state.events.activeEvent,
+  eventId: state.events.activeEvent.id,
   userId: state.user.id,
 });
 
 const mapDispatchToProps = dispatch => ({
-  addEventDataToCurrentEvent:
-    (location, distance) => dispatch(addEventDataToCurrentEvent(location, distance)),
+  addEventDataToActiveEvent:
+    (location, distance) => dispatch(addEventDataToActiveEvent(location, distance)),
 });
 
 ActiveEvent.propTypes = {
   userId: PropTypes.string.isRequired,
   eventId: PropTypes.string.isRequired,
-  currentEvent: PropTypes.objectOf(PropTypes.any).isRequired,
+  activeEvent: PropTypes.objectOf(PropTypes.any).isRequired,
   navigation: PropTypes.objectOf(PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.objectOf(PropTypes.any),
   ])).isRequired,
-  addEventDataToCurrentEvent: PropTypes.func.isRequired,
+  addEventDataToActiveEvent: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ActiveEvent);

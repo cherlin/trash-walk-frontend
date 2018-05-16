@@ -1,52 +1,22 @@
 const defaultState = {
-  CurrentEventToJoin: {
-    coveredAreaPolygon: [],
-    eventId: 1,
-    startTime: '',
-    noOfParticipants: null,
-    areaCovered: '',
-    participantLocations: [],
-  },
-  FinishedEventDetail: {
-    eventId: 333,
-    startTime: null,
-    endTime: null,
-    personalAreaCovered: null,
-    totalAreaCovered: null,
-    personalDistanceWalked: null,
-    totalDistanceWalked: null,
-    eventImages: '',
-    eventComments: '',
-  },
-  FinishedEventToConfirm: {
-    eventId: null,
-    startTime: null,
-    endTime: null,
-    personalAreaCovered: null,
-    totalAreaCovered: null,
-    personalDistanceWalked: null,
-    totalDistanceWalked: null,
-  },
-  finishedEvents: [
-    {
-      id: '123sdf324sdff',
-      participants: 12,
-      endTime: 12312423423,
-      firstLocation: [],
-    },
-  ],
-  activeEvents: [
-    {
-      id: '123sdf324sdff',
-      participants: 12,
-      startTime: 12312423423,
-      firstLocation: [],
-    },
-  ],
-  currentEvent: {
+  ongoingEventsAtLocation: [],
+  pastEventsAtLocation: [],
+  events: {},
+  activeEvent: {
+    confirmed: false,
     path: [],
     id: '',
-    distance: 0,
+    distance: 0, // Local distance. Calculated by geolocation module.
+    snapshot: {
+      id: '', // Participation ID (from POST /event/update)
+      distance: 0, // Distance from server, calculated on geodata.
+      area: 0, // Square meters covered.
+      shape: [], // Current polygon.
+      startTime: '',
+      endTime: '',
+      EventId: '',
+      UserId: '',
+    },
   },
 };
 
@@ -59,7 +29,8 @@ const events = (state = defaultState, action) => {
       return {
         ...state,
         gettingLocationEvents: false,
-        ...action.data,
+        ongoingEventsAtLocation: [...action.data.activeEvents],
+        pastEventsAtLocation: [...action.data.finishedEvents],
       };
     case 'GET_LOCATION_EVENTS_FAILURE':
       return { ...state, gettingLocationEventsFailed: action.error };
@@ -67,12 +38,12 @@ const events = (state = defaultState, action) => {
     // Requests an event id to begin sending locations to.
     case 'CREATE_EVENT_REQUEST':
       return { ...state, creatingEvent: true };
-    // If this succeeds, we empty the currentEvents path and distance.
+    // If this succeeds, we empty the activeEvents path and distance.
     case 'CREATE_EVENT_SUCCESS':
       return {
         ...state,
         creatingEvent: false,
-        currentEvent: {
+        activeEvent: {
           path: [],
           distance: 0,
           ...action.data,
@@ -87,8 +58,8 @@ const events = (state = defaultState, action) => {
       return {
         ...state,
         confirmingEvent: false,
-        currentEvent: {
-          ...state.currentEvent,
+        activeEvent: {
+          ...state.activeEvent,
           confirmed: true, // Maybe we should get the complete confirmed event back as a response.
         },
       };
@@ -96,12 +67,12 @@ const events = (state = defaultState, action) => {
       return { ...state, confirmingEvent: false, confirmingEventFailed: action.error };
 
     // Continuously fired on active event, appending locations to the path drawn on the map.
-    case 'ADD_EVENT_DATA_TO_CURRENT_EVENT':
+    case 'ADD_EVENT_DATA_TO_ACTIVE_EVENT':
       return {
         ...state,
-        currentEvent: {
-          ...state.currentEvent,
-          path: [...state.currentEvent.path, action.location],
+        activeEvent: {
+          ...state.activeEvent,
+          path: [...state.activeEvent.path, action.location],
           distance: action.distance,
         },
       };
@@ -109,16 +80,32 @@ const events = (state = defaultState, action) => {
     case 'JOIN_EVENT_REQUEST':
       return { ...state, joiningEvent: true };
     case 'JOIN_EVENT_SUCCESS':
-      return { ...state, joiningEvent: false };
+      return {
+        ...state,
+        joiningEvent: false,
+        activeEvent: {
+          path: [],
+          distance: 0,
+          ...action.data,
+        },
+      };
     case 'JOIN_EVENT_FAILURE':
       return { ...state, joiningEventFailed: action.error };
 
     case 'GET_EVENT_REQUEST':
-      return { ...state, gettingCurrentEvent: true };
+      return { ...state, gettingEvent: true };
     case 'GET_EVENT_SUCCESS':
-      return { ...state, gettingCurrentEvent: false, ...action.data };
+      return {
+        ...state,
+        gettingEvent: false,
+        events: {
+          [action.data.event.id]: {
+            ...action.data,
+          },
+        },
+      };
     case 'GET_EVENT_FAILURE':
-      return { ...state, gettingCurrentEventFailure: true };
+      return { ...state, gettingEventFailure: true };
     default:
       return state;
   }
