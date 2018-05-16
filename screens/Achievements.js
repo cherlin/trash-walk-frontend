@@ -32,4 +32,4 @@ const mapStateToProps = state => ({
   badges: state.user.badges,
 });
 
-export default connect(mapStateToProps, null)(Achievements);
+export default connect(mapStateToProps)(Achievements);

@@ -11,6 +11,18 @@ const defaultState = {
     longitude: 42.13132,
   },
   id: '26076206-cfc2-47de-b8af-f15daca91aa7',
+  firstName: '',
+  lastName: '',
+  email: '',
+  badges: [],
+  participations: [{
+    id: '16076206-cfc2-47de-b8af-f15daca91aa1',
+    UserId: '26076206-cfc2-47de-b8af-f15daca91aa2',
+    EventId: '36076206-cfc2-47de-b8af-f15daca91aa3',
+    startTime: 'Today',
+    endTime: '2018-02-12T02:00',
+    distance: 1260,
+  }],
   stats: {
     totalTime: null,
     totalDistance: null,
