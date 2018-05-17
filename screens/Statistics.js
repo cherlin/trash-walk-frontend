@@ -63,7 +63,6 @@ const styles = StyleSheet.create({
 });
 
 function Statistics(props) {
-  console.log('STATS', this.props.stats);
   return (
     <View>
       <View style={styles.statsContainer}>

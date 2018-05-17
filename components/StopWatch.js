@@ -46,5 +46,5 @@ export default class StopWatch extends Component {
 }
 
 StopWatch.propTypes = {
-  stopwatchStart: PropTypes.func.isRequired,
+  stopwatchStart: PropTypes.bool.isRequired,
 };

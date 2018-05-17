@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import MapView from 'react-native-maps';
 import { createEvent } from '../actions/events';
 import backBt from '../assets/menu/bt-back.png';
 
@@ -27,9 +28,9 @@ const styles = StyleSheet.create({
   mapContainer: {
     flex: 1,
     backgroundColor: 'grey',
-    height: 400,
   },
   detailsContainer: {
+    height: 350,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -93,12 +94,25 @@ class StartConfirmation extends React.Component {
           <Image source={backBt} style={styles.backBt} />
         </TouchableOpacity>
         <View style={styles.mapContainer}>
-          <Text>StartConfirmation Screen - Map View</Text>
+          <MapView
+            ref={(c) => { this.mapRef = c; }}
+            style={{ flex: 1 }}
+            showsUserLocation
+            followsUserLocation={false}
+            scrollEnabled
+            showsMyLocationButton={false}
+            showsPointsOfInterest={false}
+            showsScale={false}
+            showsTraffic={false}
+            toolbarEnabled={false}
+          />
         </View>
-        <View style={styles.btContainer}>
-          <TouchableOpacity style={styles.startBtContainer} onPress={this.startEvent}>
-            <Text style={styles.btText}>Start Walk</Text>
-          </TouchableOpacity>
+        <View style={styles.detailsContainer}>
+          <View style={styles.btContainer}>
+            <TouchableOpacity style={styles.startBtContainer} onPress={this.startEvent}>
+              <Text style={styles.btText}>Start Walk</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     );
