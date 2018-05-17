@@ -63,25 +63,26 @@ const styles = StyleSheet.create({
 });
 
 function Statistics(props) {
+  const participations = props.participations.length;
   return (
     <View>
       <View style={styles.statsContainer}>
         <View style={styles.statsInfo}>
           <Text style={styles.statsInfoDetails}>
-            {props.stats.totalWalks}
+            {props.participations ? participations : '0'}
           </Text>
           <Text style={styles.statsInfoTitle}>Total Walks</Text>
         </View>
         <View style={styles.statsInfo}>
           <Text style={styles.statsInfoDetails}>
-            {props.stats.totalDistance}
+            { props.stats ? (props.stats.totalDistance / 1000).toFixed(1) : '0' }
             <Text style={styles.statsInfoDetailsUnit}> km</Text>
           </Text>
           <Text style={styles.statsInfoTitle}>Total Distance</Text>
         </View>
         <View style={styles.statsInfo}>
           <Text style={styles.statsInfoDetails}>
-            {props.stats.totalArea}
+            {props.stats ? (props.stats.totalArea / 1000000).toFixed(2) : '0'}
             <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
               <Text style={styles.statsInfoDetailsUnit}> km</Text>
               <Text style={styles.statsInfoDetailsUnitSquare}>2</Text>
@@ -96,10 +97,12 @@ function Statistics(props) {
 
 const mapStateToProps = state => ({
   stats: state.user.stats,
+  participations: state.user.participations,
 });
 
 Statistics.propTypes = {
   stats: PropTypes.objectOf(PropTypes.any).isRequired,
+  participations: PropTypes.arrayOf(PropTypes.any),
 };
 
 export default connect(mapStateToProps, null)(Statistics);
