@@ -70,7 +70,7 @@ class StartConfirmation extends React.Component {
   startEvent = () => {
     this.props.createEvent(this.props.userId);
     this.props.navigation.navigate('ActiveEvent');
-  }
+  };
 
   render() {
     return (
@@ -87,11 +87,11 @@ class StartConfirmation extends React.Component {
             <Text style={styles.detailsTitle}>Time Elapsed</Text>
           </View>
           <View>
-            <Text style={styles.detailsText}>0</Text>
+            <Text style={styles.detailsText}>{this.props.activeEvent.participants}</Text>
             <Text style={styles.detailsTitle}>Participants</Text>
           </View>
           <View>
-            <Text style={styles.detailsText}>0km</Text>
+            <Text style={styles.detailsText}>{this.props.activeEvent.area}km</Text>
             <Text style={styles.detailsTitle}>Area Covered</Text>
           </View>
         </View>
@@ -105,6 +105,7 @@ class StartConfirmation extends React.Component {
 
 const mapStateToProps = state => ({
   userId: state.user.id,
+  activeEvent: state.events.activeEvent.snapshot,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -118,6 +119,7 @@ StartConfirmation.propTypes = {
     PropTypes.objectOf(PropTypes.any),
   ])).isRequired,
   userId: PropTypes.string.isRequired,
+  activeEvent: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(StartConfirmation);
