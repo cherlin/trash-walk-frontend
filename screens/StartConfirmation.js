@@ -7,7 +7,7 @@ import backBt from '../assets/menu/bt-back.png';
 
 const styles = StyleSheet.create({
   container: {
-    flex:1,
+    flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-start',
     position: 'absolute',
@@ -16,16 +16,16 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     backgroundColor: '#fff',
-    zIndex:-1,
+    zIndex: -1,
   },
   backBt: {
     marginTop: 36,
     marginLeft: 16,
-    position:'absolute',
-    zIndex:1,
+    position: 'absolute',
+    zIndex: 1,
   },
   mapContainer: {
-    flex:1,
+    flex: 1,
     backgroundColor: 'grey',
     height: 400,
   },
