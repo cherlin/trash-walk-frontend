@@ -4,7 +4,7 @@ import BackgroundGeolocation from 'react-native-background-geolocation';
 import MapView, { Polyline } from 'react-native-maps';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addEventDataToActiveEvent, pauseEvent } from '../actions/events';
+import { addEventDataToActiveEvent } from '../actions/events';
 import { SERVER_BASE_URL } from '../middlewares/api';
 import StopWatch from '../components/StopWatch';
 import stopBt from '../assets/buttons/bt-stop.png';
