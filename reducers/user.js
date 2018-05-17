@@ -1,32 +1,27 @@
 const defaultState = {
+  id: '7fa71780-4bb7-4c3e-b204-b39dea16d2cb',
   firstName: '',
   lastName: '',
-  profilePicture: '',
   email: '',
-  updatedAt: '',
-  createdAt: '',
   token: '',
-  location: {
-    latitude: 2.13123,
-    longitude: 42.13132,
-  },
-  id: '26076206-cfc2-47de-b8af-f15daca91aa7',
-  firstName: '',
-  lastName: '',
-  email: '',
+  createdAt: '',
+  updatedAt: '',
   badges: [],
   participations: [{
     id: '16076206-cfc2-47de-b8af-f15daca91aa1',
     UserId: '26076206-cfc2-47de-b8af-f15daca91aa2',
     EventId: '36076206-cfc2-47de-b8af-f15daca91aa3',
-    startTime: 'Today',
+    startTime: '2018-02-12T01:00',
     endTime: '2018-02-12T02:00',
     distance: 1260,
   }],
   stats: {
-    totalTime: null,
     totalDistance: null,
     totalArea: null,
+  },
+  location: {
+    latitude: 2.13123,
+    longitude: 42.13132,
   },
 };
 

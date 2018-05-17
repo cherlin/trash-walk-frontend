@@ -8,8 +8,8 @@ export const getLocationEvents = location => ({
   },
 });
 
-export const addEventDataToCurrentEvent = (location, distance) => ({
-  type: 'ADD_EVENT_DATA_TO_CURRENT_EVENT',
+export const addEventDataToActiveEvent = (location, distance) => ({
+  type: 'ADD_EVENT_DATA_TO_ACTIVE_EVENT',
   location,
   distance,
 });
@@ -26,7 +26,7 @@ export const createEvent = userId => ({
   },
 });
 
-export const confirmEvent = (userId, eventId, distance, endTime) => ({
+export const confirmEvent = (userId, eventId) => ({
   type: 'CONFIRM_EVENT',
   [API]: {
     endpoint: '/event/end',
@@ -34,8 +34,21 @@ export const confirmEvent = (userId, eventId, distance, endTime) => ({
     body: {
       userId,
       eventId,
-      distance,
-      endTime,
+    },
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  },
+});
+
+export const cancelEvent = (userId, eventId) => ({
+  type: 'CANCEL_EVENT',
+  [API]: {
+    endpoint: '/event',
+    method: 'DELETE',
+    body: {
+      userId,
+      eventId,
     },
     headers: {
       'Content-Type': 'application/json',
