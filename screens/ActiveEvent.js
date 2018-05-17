@@ -1,12 +1,11 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity, Image, Text } from 'react-native';
 import BackgroundGeolocation from 'react-native-background-geolocation';
-import MapView, { Polyline } from 'react-native-maps';
+import MapView, { Polygon } from 'react-native-maps';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addEventDataToActiveEvent } from '../actions/events';
+import { addEventDataToActiveEvent, addResponseDataToActiveEvent } from '../actions/events';
 import { SERVER_BASE_URL } from '../middlewares/api';
-import StopWatch from '../components/StopWatch';
 import stopBt from '../assets/buttons/bt-stop.png';
 import pauseBt from '../assets/buttons/bt-pause.png';
 
@@ -74,8 +73,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const LATITUDE_DELTA = 0.00922;
-const LONGITUDE_DELTA = 0.00421;
+const LATITUDE_DELTA = 0.00222;
+const LONGITUDE_DELTA = 0.00121;
 
 class ActiveEvent extends React.Component {
   constructor(props) {
@@ -84,7 +83,8 @@ class ActiveEvent extends React.Component {
     this.state = {
       showsUserLocation: false,
       isMoving: false,
-      stopwatchStart: true,
+      minutes: 0,
+      hours: 0,
     };
   }
 
@@ -130,8 +130,14 @@ class ActiveEvent extends React.Component {
   };
 
   onUpdateResponse = (response) => {
-    console.log(response);
-  };
+    const res = JSON.parse(response.responseText);
+    const polylinifiedShape = res.shape[0].map(arr => ({
+      latitude: arr[1],
+      longitude: arr[0],
+    }));
+    res.shape = polylinifiedShape;
+    this.props.addResponseDataToActiveEvent(res);
+  }
 
   onMotionChange = (isMoving) => {
     if (isMoving) {
@@ -155,14 +161,18 @@ class ActiveEvent extends React.Component {
       extras: { eventId: this.props.eventId, userId: this.props.userId },
     });
     await BackgroundGeolocation.start();
-    this.setState({ showsUserLocation: true, stopwatchStart: true });
+    this.setState({ showsUserLocation: true });
+    this.timerId = setInterval(() => {
+      if (this.state.minutes === 59) this.setState({ minutes: 0, hours: this.state.hours + 1 });
+      this.setState({ minutes: this.state.minutes + 1 });
+    }, 60000);
   };
 
   stopEvent = async () => {
     await BackgroundGeolocation.stop();
     await BackgroundGeolocation.removeAllListeners();
+    clearInterval(this.timerId);
     this.props.navigation.navigate('FinishedEventToConfirm');
-    this.setState({ stopwatchStart: false });
   };
 
   render() {
@@ -181,18 +191,19 @@ class ActiveEvent extends React.Component {
             showsTraffic={false}
             toolbarEnabled={false}
           >
-            <Polyline
-              coordinates={this.props.activeEvent.path}
-              strokeWidth={26}
+            <Polygon
+              coordinates={this.props.activeEvent.snapshot.shape}
+              strokeWidth={1}
+              fillColor="rgba(83,173,147,0.15)"
               geodesic
-              strokeColor="rgba(0,179,253, 0.6)"
+              strokeColor="rgb(83,173,147)"
               zIndex={0}
             />
           </MapView>
         </View>
         <View style={styles.detailsContainer}>
           <View>
-            <StopWatch stopwatchStart={this.state.stopwatchStart} />
+            <Text style={styles.detailsText}>{this.state.hours}:{this.state.minutes < 9 ? `0${this.state.minutes}` : this.state.minutes }</Text>
             <Text style={styles.detailsTitle}>Time Elapsed</Text>
           </View>
           <View>
@@ -200,7 +211,7 @@ class ActiveEvent extends React.Component {
             <Text style={styles.detailsTitle}>Participants</Text>
           </View>
           <View>
-            <Text style={styles.detailsText}>{this.props.activeEvent.snapshot ? this.props.activeEvent.snapshot.area.toFixed(0) : '0'} m</Text>
+            <Text style={styles.detailsText}>{this.props.activeEvent.snapshot ? (this.props.activeEvent.snapshot.area / 1000000).toFixed(2) : '0'} km</Text>
             <Text style={styles.detailsTitle}>Area Covered</Text>
           </View>
         </View>
@@ -226,7 +237,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   addEventDataToActiveEvent:
     (location, distance) => dispatch(addEventDataToActiveEvent(location, distance)),
-  pauseEvent: data => dispatch(pauseEvent(data)),
+  addResponseDataToActiveEvent:
+    response => dispatch(addResponseDataToActiveEvent(response)),
 });
 
 ActiveEvent.propTypes = {
@@ -238,6 +250,7 @@ ActiveEvent.propTypes = {
     PropTypes.objectOf(PropTypes.any),
   ])).isRequired,
   addEventDataToActiveEvent: PropTypes.func.isRequired,
+  addResponseDataToActiveEvent: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ActiveEvent);

@@ -44,6 +44,7 @@ const events = (state = defaultState, action) => {
         ...state,
         creatingEvent: false,
         activeEvent: {
+          ...state.activeEvent,
           path: [],
           distance: 0,
           ...action.data,
@@ -74,6 +75,15 @@ const events = (state = defaultState, action) => {
           ...state.activeEvent,
           path: [...state.activeEvent.path, action.location],
           distance: action.distance,
+        },
+      };
+
+    case 'ADD_RESPONSE_DATA_TO_ACTIVE_EVENT':
+      return {
+        ...state,
+        activeEvent: {
+          ...state.activeEvent,
+          snapshot: { ...action.response },
         },
       };
 

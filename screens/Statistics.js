@@ -101,8 +101,7 @@ const mapStateToProps = state => ({
 });
 
 Statistics.propTypes = {
-  stats: PropTypes.objectOf(PropTypes.any).isRequired,
-  participations: PropTypes.arrayOf(PropTypes.any),
+  participations: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 export default connect(mapStateToProps, null)(Statistics);

@@ -14,6 +14,11 @@ export const addEventDataToActiveEvent = (location, distance) => ({
   distance,
 });
 
+export const addResponseDataToActiveEvent = response => ({
+  type: 'ADD_RESPONSE_DATA_TO_ACTIVE_EVENT',
+  response,
+});
+
 export const createEvent = userId => ({
   type: 'CREATE_EVENT',
   [API]: {

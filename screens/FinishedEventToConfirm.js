@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View, StyleSheet, TouchableOpacity, Image, Text } from 'react-native';
-import MapView, { Polyline } from 'react-native-maps';
+import MapView, { Polygon } from 'react-native-maps';
 import Expo, { ImagePicker } from 'expo';
 import PropTypes from 'prop-types';
 import { Button } from 'react-native-elements';
@@ -72,8 +72,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const LATITUDE_DELTA = 0.00922;
-const LONGITUDE_DELTA = 0.00421;
+const LATITUDE_DELTA = 0.00222;
+const LONGITUDE_DELTA = 0.00121;
 
 class FinishedEventToConfirm extends React.Component {
   constructor(props) {
@@ -138,6 +138,14 @@ class FinishedEventToConfirm extends React.Component {
       <View style={styles.container}>
         <View style={styles.mapContainer}>
           <MapView
+            region={{
+              longitude:
+                this.props.activeEvent.path[this.props.activeEvent.path.length - 1].longitude,
+              latitude:
+                this.props.activeEvent.path[this.props.activeEvent.path.length - 1].latitude,
+              longitudeDelta: LONGITUDE_DELTA,
+              latitudeDelta: LATITUDE_DELTA,
+            }}
             style={{ flex: 1 }}
             showsUserLocation={false}
             followsUserLocation={false}
@@ -148,11 +156,12 @@ class FinishedEventToConfirm extends React.Component {
             showsTraffic={false}
             toolbarEnabled={false}
           >
-            <Polyline
-              coordinates={this.props.activeEvent.path}
-              strokeWidth={26}
+            <Polygon
+              coordinates={this.props.activeEvent.snapshot.shape}
+              strokeWidth={1}
+              fillColor="rgba(83,173,147,0.15)"
               geodesic
-              strokeColor="rgba(0,179,253, 0.6)"
+              strokeColor="rgb(83,173,147)"
               zIndex={0}
             />
           </MapView>
@@ -167,7 +176,7 @@ class FinishedEventToConfirm extends React.Component {
               <Text style={styles.measureDesc}>Time elapsed</Text>
             </View>
             <View>
-              <Text style={styles.measureUnit}>8 km</Text>
+              <Text style={styles.measureUnit}>{this.props.activeEvent.snapshot ? (this.props.activeEvent.snapshot.area / 100000).toFixed(2) : '0'} km</Text>
               <Text style={styles.measureDesc}>Area covered</Text>
             </View>
           </View>
@@ -182,7 +191,6 @@ class FinishedEventToConfirm extends React.Component {
                     width: 80,
                     height: 80,
                     borderRadius: 40,
-                    alignSelf: 'left',
                     padding: 10,
                     }}
                   />
