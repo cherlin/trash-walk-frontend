@@ -57,7 +57,7 @@ export const cancelEvent = (userId, eventId) => ({
 });
 
 export const getEvent = (eventId, userId) => ({
-  type: 'GET_CURRENT_EVENT',
+  type: 'GET_EVENT',
   [API]: {
     endpoint: `/event?eventId=${eventId}&userId=${userId}`,
     method: 'GET',

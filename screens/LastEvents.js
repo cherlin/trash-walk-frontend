@@ -61,7 +61,7 @@ class LastEvents extends React.Component {
           <ScrollView contentContainerStyle={styles.container} style={{ backgroundColor: '#fff' }}>
             { this.props.participations.map(event => (
               <View key={event.id} style={styles.imageView}>
-                <TouchableHighlight onPress={() => this.onPressEvent(event.id)}>
+                <TouchableHighlight onPress={() => this.onPressEvent(event.EventId)}>
                   <ImageBackground
                     source={image1}
                     style={styles.image}

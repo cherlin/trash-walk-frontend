@@ -1,5 +1,5 @@
 const defaultState = {
-  id: '7fa71780-4bb7-4c3e-b204-b39dea16d2cb',
+  id: '',
   firstName: '',
   lastName: '',
   email: '',
