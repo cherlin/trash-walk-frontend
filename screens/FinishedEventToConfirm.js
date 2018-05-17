@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, StyleSheet, Button, TouchableOpacity, Image } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import MapView, { Polyline } from 'react-native-maps';
 import Expo, { ImagePicker } from 'expo';
 import PropTypes from 'prop-types';
+import { Button } from 'react-native-elements';
 import { confirmEvent, cancelEvent } from '../actions/events';
 
 const styles = StyleSheet.create({
@@ -11,6 +12,41 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+
+  footer: {
+    flex: 1,
+    flexDirection: 'row',
+    marginBottom: 24,
+    alignItems: 'flex-end',
+  },
+
+  cancelView: {
+    flex: 1,
+    justifyContent: 'flex-start',
+  },
+
+  confirmView: {
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
+
+  cancelButton: {
+    height: 48,
+    width: 163,
+    borderRadius: 30,
+    backgroundColor: '#A4C3C6',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-end',
+  },
+
+  confirmButton: {
+    height: 48,
+    width: 163,
+    borderRadius: 30,
+    backgroundColor: '#53AD93',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
   },
 });
 
@@ -110,10 +146,11 @@ class FinishedEventToConfirm extends React.Component {
               <Image
                 source={{ uri: this.state.image }}
                 style={{
-                width: 200,
-                height: 200,
+                width: 100,
+                height: 100,
                 borderRadius: 100,
-                alignSelf: 'center',
+                alignSelf: 'left',
+                padding: 10,
                 }}
               />
               :
@@ -127,9 +164,33 @@ class FinishedEventToConfirm extends React.Component {
             }
           </View>
         </TouchableOpacity>
-        <View style={{ flex: 1 }}>
-          <Button title="Cancel" onPress={this.cancelEvent} />
-          <Button title="Confirm" onPress={this.confirmEvent} />
+        <View style={styles.footer}>
+          <View style={styles.cancelView}>
+            <Button
+              Button
+              icon={{
+              name: 'cancelButton',
+              type: 'font-awesome',
+            }}
+              fontFamily="MontserratBold"
+              title="Cancel"
+              buttonStyle={styles.cancelButton}
+              onPress={this.cancelEvent}
+            />
+          </View>
+          <View style={styles.confirmView}>
+            <Button
+              Button
+              icon={{
+              name: 'confirmButton',
+              type: 'font-awesome',
+            }}
+              fontFamily="MontserratBold"
+              title="Confirm"
+              buttonStyle={styles.confirmButton}
+              onPress={this.confirmEvent}
+            />
+          </View>
         </View>
       </View>
     );
