@@ -1,20 +1,7 @@
 const defaultState = {
-  week: {
-    distance: 12313,
-    participants: 13,
-    timeSpent: 144,
-    areaCleaned: 123123,
-  },
-  month: {
-    participants: null,
-    timeSpent: null,
-    areaCleaned: null,
-  },
-  year: {
-    participants: null,
-    timeSpent: null,
-    areaCleaned: null,
-  },
+  totalDistance: 12312312,
+  totalParticipants: 1223,
+  totalArea: 123123123123,
 };
 
 const stats = (state = defaultState, action) => {

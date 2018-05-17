@@ -28,17 +28,16 @@ class Home extends React.Component {
   }
 
   render() {
-    console.log('#### Finished', this.props.finishedEvents);
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
         <Text style={styles.header}>Home Screen</Text>
         <View style={styles.container}>
           <Text style={styles.heading}>Current walks in this area</Text>
-          { this.props.activeEvents.length
-            ? this.props.activeEvents.map(event => (
-              <View>
-                <Text key={event.id}>
+          { this.props.ongoingEventsAtLocation.length
+            ? this.props.ongoingEventsAtLocation.map(event => (
+              <View key={event.id}>
+                <Text>
                 Start: {event.startTime}. Participants: {event.participants}
                 </Text>
                 <Button title="Current (ongoing) walk" onPress={() => navigate('CurrentEventToJoin', { eventId: event.id })} />
@@ -48,12 +47,14 @@ class Home extends React.Component {
           }
         </View>
         <View style={styles.container}>
-          <Text style={styles.heading}>Global Stats (Week)</Text>
-          <Text>Participants: {this.props.stats.week.participants}</Text>
+          <Text style={styles.heading}>Stats</Text>
+          <Text>Participants: {this.props.stats.totalParticipants}</Text>
+          <Text>Total Distance: {this.props.stats.totalDistance.toFixed(0)}</Text>
+          <Text>Total Area Cleaned: {this.props.stats.totalArea.toFixed(0)}</Text>
         </View>
         <View style={styles.container}>
           <Text style={styles.heading}>Previous walks in this area</Text>
-          { this.props.finishedEvents.map(event => (
+          { this.props.pastEventsAtLocation.map(event => (
             <Text key={event.id}>
               End: {event.endTime}. Participant: {event.participants}
             </Text>))
@@ -67,8 +68,8 @@ class Home extends React.Component {
 
 const mapStateToProps = state => ({
   currentUserLocation: state.user.location,
-  activeEvents: state.events.activeEvents,
-  finishedEvents: state.events.finishedEvents,
+  ongoingEventsAtLocation: state.events.ongoingEventsAtLocation,
+  pastEventsAtLocation: state.events.pastEventsAtLocation,
   stats: state.stats,
 });
 
@@ -81,8 +82,8 @@ Home.propTypes = {
   getLocationEvents: PropTypes.func.isRequired,
   getLocationStats: PropTypes.func.isRequired,
   currentUserLocation: PropTypes.objectOf(PropTypes.number).isRequired,
-  activeEvents: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)).isRequired,
-  finishedEvents: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)).isRequired,
+  ongoingEventsAtLocation: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)).isRequired,
+  pastEventsAtLocation: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)).isRequired,
   navigation: PropTypes.objectOf(PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.objectOf(PropTypes.any),
@@ -91,108 +92,3 @@ Home.propTypes = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
-
-/*
-
-ASK: Permission to use GPS (always).
-If [No] - give message to user that they will not be able to use the app properly.
-If [Yes] - get user position and save to state (User > currentLocation).
-
-GET (query: currentLocation):
-* Current Events at Location (every 5 seconds)
-* Stats (Global, National and Local) (every 20 seconds) - either one or three queries.
-* Past Events at Location (every 30 seconds)
-
-STATE (Redux Store):
-User: {
-  location: {
-    currentLocation: [0.234123123, 32.12331233]
-    timeStamp: 123123123123
-  }
-}
-HomeScreen: {
-  events: {
-    currentEventsInArea: [
-      {
-        eventId: 12ghj13ghj2jhg3
-        image: 'beach',
-        participants: 16,
-        startTime: 123142543453
-      },
-      {
-        eventId: 12ghj13ghj2jh32
-        image: 'woods',
-        participants: 2,
-        startTime: 123142443453
-      },
-    ],
-    stats: {
-      global: {
-        week: {
-          participants: 27,
-          timeSpent: 123123123123,
-          areaCleaned: 123123123132
-        },
-        month: {
-          participants: 100,
-          timeSpent: 123123123123453,
-          areaCleaned: 123123123423132
-        },
-        year: {
-          participants: 284,
-          timeSpent: 123123123123,
-          areaCleaned: 123123123132
-        },
-      },
-      national: {
-        week: {
-          participants: 27,
-          timeSpent: 123123123123,
-          areaCleaned: 123123123132
-        },
-        month: {
-          participants: 100,
-          timeSpent: 123123123123453,
-          areaCleaned: 123123123423132
-        },
-        year: {
-          participants: 284,
-          timeSpent: 123123123123,
-          areaCleaned: 123123123132
-        },
-      },
-      local: {
-        week: {
-          participants: 27,
-          timeSpent: 123123123123,
-          areaCleaned: 123123123132
-        },
-        month: {
-          participants: 100,
-          timeSpent: 123123123123453,
-          areaCleaned: 123123123423132
-        },
-        year: {
-          participants: 284,
-          timeSpent: 123123123123,
-          areaCleaned: 123123123132
-        },
-      },
-    }
-    latestEventsInArea: [
-      {
-        eventId: 12ghj13ghsdfjhg3
-        image: 'map',
-        participants: 16,
-        endTime: 123142543453
-      },
-      {
-        eventId: 12ghj13sdfsj2jhg3
-        image: 'map',
-        participants: 2,
-        endTime: 123142443453
-      },
-    ]
-  },
-}
-*/

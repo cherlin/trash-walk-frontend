@@ -4,7 +4,7 @@ import { View, StyleSheet, Button, TouchableOpacity, Image } from 'react-native'
 import MapView, { Polyline } from 'react-native-maps';
 import Expo, { ImagePicker } from 'expo';
 import PropTypes from 'prop-types';
-import { confirmEvent } from '../actions/events';
+import { confirmEvent, cancelEvent } from '../actions/events';
 
 const styles = StyleSheet.create({
   container: {
@@ -26,8 +26,13 @@ class FinishedEventToConfirm extends React.Component {
   }
 
   confirmEvent = () => {
-    this.props.confirmEvent(this.props.userId, this.props.eventId, this.props.distance, Date.now());
+    this.props.confirmEvent(this.props.user.id, this.props.activeEvent.id);
     this.props.navigation.navigate('EventConfirmation');
+  }
+
+  cancelEvent = () => {
+    this.props.cancelEvent(this.props.user.id, this.props.activeEvent.id);
+    this.props.navigation.navigate('Home');
   }
 
   pickImage = async () => {
@@ -66,7 +71,6 @@ class FinishedEventToConfirm extends React.Component {
     }
   }
 
-
   render() {
     return (
       <View style={styles.container}>
@@ -74,9 +78,9 @@ class FinishedEventToConfirm extends React.Component {
           <MapView
             region={{
               latitude:
-                this.props.currentEvent.path[this.props.currentEvent.path.length - 1].latitude,
+                this.props.activeEvent.path[this.props.activeEvent.path.length - 1].latitude,
               longitude:
-                this.props.currentEvent.path[this.props.currentEvent.path.length - 1].longitude,
+                this.props.activeEvent.path[this.props.activeEvent.path.length - 1].longitude,
               latitudeDelta: LATITUDE_DELTA,
               longitudeDelta: LONGITUDE_DELTA,
             }}
@@ -92,7 +96,7 @@ class FinishedEventToConfirm extends React.Component {
             toolbarEnabled={false}
           >
             <Polyline
-              coordinates={this.props.currentEvent.path}
+              coordinates={this.props.activeEvent.path}
               strokeWidth={26}
               geodesic
               strokeColor="rgba(0,179,253, 0.6)"
@@ -124,7 +128,7 @@ class FinishedEventToConfirm extends React.Component {
           </View>
         </TouchableOpacity>
         <View style={{ flex: 1 }}>
-          <Button title="Cancel" onPress={() => this.props.navigation.navigate('Home')} />
+          <Button title="Cancel" onPress={this.cancelEvent} />
           <Button title="Confirm" onPress={this.confirmEvent} />
         </View>
       </View>
@@ -133,26 +137,24 @@ class FinishedEventToConfirm extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  currentEvent: state.events.currentEvent,
-  eventId: state.events.currentEvent.id,
-  distance: state.events.currentEvent.distance,
-  userId: state.user.id,
+  activeEvent: state.events.activeEvent,
+  user: state.user,
 });
 
 const mapDispatchToProps = dispatch => ({
-  confirmEvent: (userId, eventId, distance, endTime) => dispatch(confirmEvent(userId, eventId, distance, endTime)),
+  confirmEvent: (userId, eventId) => dispatch(confirmEvent(userId, eventId)),
+  cancelEvent: (userId, eventId) => dispatch(cancelEvent(userId, eventId)),
 });
 
 FinishedEventToConfirm.propTypes = {
   confirmEvent: PropTypes.func.isRequired,
-  userId: PropTypes.string.isRequired,
-  eventId: PropTypes.string.isRequired,
-  distance: PropTypes.number.isRequired,
+  cancelEvent: PropTypes.func.isRequired,
+  user: PropTypes.objectOf(PropTypes.any).isRequired,
+  activeEvent: PropTypes.objectOf(PropTypes.any).isRequired,
   navigation: PropTypes.objectOf(PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.objectOf(PropTypes.any),
   ])).isRequired,
-  currentEvent: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FinishedEventToConfirm);
