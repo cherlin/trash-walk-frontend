@@ -1,52 +1,74 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Image, Text } from 'react-native';
 import MapView, { Polyline } from 'react-native-maps';
 import Expo, { ImagePicker } from 'expo';
 import PropTypes from 'prop-types';
 import { Button } from 'react-native-elements';
+import moment from 'moment';
 import { confirmEvent, cancelEvent } from '../actions/events';
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: '#fff',
+    display: 'flex',
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
-
-  footer: {
+  mapContainer: {
     flex: 1,
     flexDirection: 'row',
-    marginBottom: 24,
-    alignItems: 'flex-end',
   },
-
-  cancelView: {
-    flex: 1,
-    justifyContent: 'flex-start',
+  detailsContainer: {
+    display: 'flex',
+    height: 410,
   },
-
-  confirmView: {
-    flex: 1,
-    justifyContent: 'flex-end',
+  dateText: {
+    fontSize: 22,
+    fontFamily: 'MontserratMedium',
+    color: 'rgb(83, 173, 147)',
   },
-
+  measureUnit: {
+    fontSize: 36,
+    fontFamily: 'MontserratSemiBold',
+    color: 'rgb(164, 195, 198)',
+  },
+  measureDesc: {
+    fontSize: 13,
+    fontFamily: 'MontserratRegular',
+    color: 'rgb(155, 155, 155)',
+  },
+  subHeading: {
+    fontSize: 18,
+    fontFamily: 'MontserratMedium',
+    color: 'rgb(155, 155, 155)',
+    marginBottom: 16,
+  },
   cancelButton: {
+    marginRight: 0,
+    marginLeft: 16,
     height: 48,
     width: 163,
     borderRadius: 30,
     backgroundColor: '#A4C3C6',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-end',
+    justifyContent: 'center',
   },
-
   confirmButton: {
+    marginRight: 16,
+    marginLeft: 0,
     height: 48,
     width: 163,
     borderRadius: 30,
     backgroundColor: '#53AD93',
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
+    justifyContent: 'center',
+
+  },
+  addImage: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 2,
+    shadowOpacity: 0.15,
+    width: 80,
+    marginBottom: 60,
   },
 });
 
@@ -108,19 +130,14 @@ class FinishedEventToConfirm extends React.Component {
   }
 
   render() {
+    const then = moment(new Date(this.props.activeEvent.startTime));
+    const now = moment(new Date());
+    const duration = moment.utc(moment(now).diff(moment(then))).format('H:mm');
+
     return (
       <View style={styles.container}>
-        <View style={{ flex: 1, flexDirection: 'row' }}>
+        <View style={styles.mapContainer}>
           <MapView
-            region={{
-              latitude:
-                this.props.activeEvent.path[this.props.activeEvent.path.length - 1].latitude,
-              longitude:
-                this.props.activeEvent.path[this.props.activeEvent.path.length - 1].longitude,
-              latitudeDelta: LATITUDE_DELTA,
-              longitudeDelta: LONGITUDE_DELTA,
-            }}
-            ref={(c) => { this.mapRef = c; }}
             style={{ flex: 1 }}
             showsUserLocation={false}
             followsUserLocation={false}
@@ -140,51 +157,60 @@ class FinishedEventToConfirm extends React.Component {
             />
           </MapView>
         </View>
-        <TouchableOpacity onPress={this.pickImage} style={{ width: 200, alignSelf: 'center' }}>
-          <View style={{ backgroundColor: 'transparent' }}>
-            {this.state.image ?
-              <Image
-                source={{ uri: this.state.image }}
-                style={{
-                width: 100,
-                height: 100,
-                borderRadius: 100,
-                alignSelf: 'left',
-                padding: 10,
-                }}
-              />
-              :
-              <View style={{
-                backgroundColor: 'grey',
-                width: 200,
-                height: 200,
-                borderRadius: 100,
-              }}
-              />
-            }
+        <View style={styles.detailsContainer}>
+          <View style={{ marginTop: 21, marginLeft: 16, marginBottom: 16 }}>
+            <Text style={styles.dateText}>{moment(this.props.activeEvent.createdAt).format('DD MMM YYYY')}</Text>
           </View>
-        </TouchableOpacity>
-        <View style={styles.footer}>
-          <View style={styles.cancelView}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginRight: 16, marginLeft: 16, marginBottom: 36 }}>
+            <View>
+              <Text style={styles.measureUnit}>{duration}</Text>
+              <Text style={styles.measureDesc}>Time elapsed</Text>
+            </View>
+            <View>
+              <Text style={styles.measureUnit}>8 km</Text>
+              <Text style={styles.measureDesc}>Area covered</Text>
+            </View>
+          </View>
+          <View style={{ marginLeft: 16 }}>
+            <Text style={styles.subHeading}>Add a picture</Text>
+            <TouchableOpacity onPress={this.pickImage} style={styles.addImage}>
+              <View style={{ backgroundColor: 'transparent' }}>
+                {this.state.image ?
+                  <Image
+                    source={{ uri: this.state.image }}
+                    style={{
+                    width: 80,
+                    height: 80,
+                    borderRadius: 40,
+                    alignSelf: 'left',
+                    padding: 10,
+                    }}
+                  />
+                  :
+                  <View style={{
+                    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                    width: 80,
+                    height: 80,
+                    borderRadius: 40,
+                  }}
+                  />
+                }
+              </View>
+            </TouchableOpacity>
+          </View>
+
+          <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
             <Button
               Button
-              icon={{
-              name: 'cancelButton',
-              type: 'font-awesome',
-            }}
+              containerStyle={{ marginLeft: 0, marginRight: 0 }}
               fontFamily="MontserratBold"
               title="Cancel"
               buttonStyle={styles.cancelButton}
               onPress={this.cancelEvent}
             />
-          </View>
-          <View style={styles.confirmView}>
             <Button
               Button
-              icon={{
-              name: 'confirmButton',
-              type: 'font-awesome',
-            }}
+              containerStyle={{ marginLeft: 0, marginRight: 0 }}
               fontFamily="MontserratBold"
               title="Confirm"
               buttonStyle={styles.confirmButton}
