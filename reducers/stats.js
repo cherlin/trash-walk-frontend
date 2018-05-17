@@ -1,7 +1,7 @@
 const defaultState = {
-  totalDistance: 12312312,
-  totalParticipants: 1223,
-  totalArea: 123123123123,
+  totalDistance: null,
+  totalParticipants: '0',
+  totalArea: null,
 };
 
 const stats = (state = defaultState, action) => {
@@ -9,7 +9,7 @@ const stats = (state = defaultState, action) => {
     case 'GET_LOCATION_STATS_REQUEST':
       return { ...state, gettingLocationStats: true };
     case 'GET_LOCATION_STATS_SUCCESS':
-      return { ...state, gettingLocationStats: false, ...action.data };
+      return { ...state, ...action.data };
     case 'GET_LOCATION_STATS_FAILURE':
       return { ...state, gettingLocationStats: false, gettingLocationStatsFailed: true };
     default:

@@ -3,6 +3,7 @@ import { Text, ScrollView, View, StyleSheet, TouchableHighlight, ImageBackground
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { getUser } from '../actions/user';
 
 // Will be dynamic eventually, but for now - static image.
 const image1 = require('../assets/images/last-walks-1.png');
@@ -45,6 +46,10 @@ const styles = StyleSheet.create({
 });
 
 class LastEvents extends React.Component {
+  componentDidMount() {
+    this.props.getUser(this.props.user.id);
+  }
+
   onPressEvent = (eventId) => {
     this.props.navigation.navigate('FinishedEventDetail', { eventId });
   }
@@ -87,12 +92,18 @@ const mapStateToProps = state => ({
   participations: state.user.participations,
 });
 
+const mapDispatchToProps = dispatch => ({
+  getUser: userId => dispatch(getUser(userId)),
+});
+
 LastEvents.propTypes = {
   participations: PropTypes.arrayOf(PropTypes.any).isRequired,
   navigation: PropTypes.objectOf(PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.objectOf(PropTypes.any),
   ])).isRequired,
+  getUser: PropTypes.func.isRequired,
+  user: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
-export default connect(mapStateToProps)(LastEvents);
+export default connect(mapStateToProps, mapDispatchToProps)(LastEvents);

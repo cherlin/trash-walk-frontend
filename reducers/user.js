@@ -7,14 +7,7 @@ const defaultState = {
   createdAt: '',
   updatedAt: '',
   badges: [],
-  participations: [{
-    id: '16076206-cfc2-47de-b8af-f15daca91aa1',
-    UserId: '26076206-cfc2-47de-b8af-f15daca91aa2',
-    EventId: '36076206-cfc2-47de-b8af-f15daca91aa3',
-    startTime: '2018-02-12T01:00',
-    endTime: '2018-02-12T02:00',
-    distance: 1260,
-  }],
+  participations: [],
   stats: {
     totalDistance: null,
     totalArea: null,
@@ -27,11 +20,11 @@ const defaultState = {
 
 const user = (state = defaultState, action) => {
   switch (action.type) {
-    case 'GET_USER_PROFILE_REQUEST':
+    case 'GET_USER_REQUEST':
       return { ...state, gettingUserProfile: true };
-    case 'GET_USER_PROFILE_SUCCESS':
+    case 'GET_USER_SUCCESS':
       return { ...state, gettingUserProfile: false, ...action.data };
-    case 'GET_USER_PROFILE_FAILURE':
+    case 'GET_USER_FAILURE':
       return { ...state, gettingUserProfile: false, gettingUserProfileFailed: true };
     case 'LOGIN_USER_REQUEST':
       return { ...state, loginUser: true };

@@ -49,8 +49,8 @@ class Home extends React.Component {
         <View style={styles.container}>
           <Text style={styles.heading}>Stats</Text>
           <Text>Participants: {this.props.stats.totalParticipants}</Text>
-          <Text>Total Distance: {this.props.stats.totalDistance.toFixed(0)}</Text>
-          <Text>Total Area Cleaned: {this.props.stats.totalArea.toFixed(0)}</Text>
+          <Text>Total Distance: {this.props.stats.totalDistance ? this.props.stats.totalDistance.toFixed(0) : 0}</Text>
+          <Text>Total Area Cleaned: {this.props.stats.totalArea ? this.props.stats.totalArea.toFixed(0) : 0}</Text>
         </View>
         <View style={styles.container}>
           <Text style={styles.heading}>Previous walks in this area</Text>

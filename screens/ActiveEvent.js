@@ -90,6 +90,7 @@ class ActiveEvent extends React.Component {
   componentDidMount() {
     BackgroundGeolocation.on('location', this.onLocation);
     BackgroundGeolocation.on('motionchange', this.onMotionChange);
+    BackgroundGeolocation.on('http', this.onUpdateResponse);
     BackgroundGeolocation.resetOdometer();
     BackgroundGeolocation.configure({
       desiredAccuracy: 0,
@@ -125,6 +126,10 @@ class ActiveEvent extends React.Component {
     if (this.state.isMoving) {
       this.props.addEventDataToActiveEvent({ latitude, longitude }, odometer);
     }
+  }
+
+  onUpdateResponse = (response) => {
+    console.log(response);
   }
 
   onMotionChange = (isMoving) => {
