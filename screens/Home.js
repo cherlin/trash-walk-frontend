@@ -1,23 +1,121 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Text, View, StyleSheet, Button } from 'react-native';
+import { Text, View, StyleSheet, Image, ScrollView, TouchableOpacity, Button } from 'react-native';
 import PropTypes from 'prop-types';
 import { getLocationEvents } from '../actions/events';
 import { getLocationStats } from '../actions/stats';
 
+import currentWalkImg from '../assets/images/current-walk-1.png';
+import lastWalkImg from '../assets/images/last-walk-1.png';
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
+    display: 'flex',
+    justifyContent: 'flex-start',
     alignItems: 'center',
+    backgroundColor: '#fff',
+    padding: 38,
   },
   header: {
-    fontSize: 30,
-    margin: 40,
+    color: '#53AD93',
+    fontFamily: 'MontserratMedium',
+    fontSize: 22,
+    marginBottom: 16,
   },
-  heading: {
+  cardContainer: {
+    width: 304,
+    height: 152,
+    backgroundColor: 'lightgrey',
+    borderRadius: 13,
+    shadowOpacity: 0.2,
+    shadowRadius: 30,
+    shadowColor: '#000',
+    shadowOffset: { height: 2, width: 0 },
+    marginBottom: 24,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+  },
+  cardInfo: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    padding: 8,
+  },
+  cardInfoText: {
+    color: '#fff',
+    fontFamily: 'MontserratSemiBold',
+    fontSize: 15,
+  },
+  noCurrentWalkText: {
+    color: '#fff',
+    fontFamily: 'MontserratSemiBold',
+    fontSize: 15,
+  },
+  currentWalkImgContainer: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
+  currentWalkImg: {
+    borderRadius: 13,
+  },
+  currentWalkInfo: {
+    color: '#fff',
+    fontFamily: 'MontserratSemiBold',
+    fontSize: 16,
+  },
+  statsContainer: {
+    width: 304,
+    height: 224,
+    backgroundColor: '#fff',
+    borderRadius: 13,
+    shadowOpacity: 0.2,
+    shadowRadius: 30,
+    shadowColor: '#000',
+    shadowOffset: { height: 2, width: 0 },
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 16,
+    marginBottom: 24,
+  },
+  statsInfo: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  statsInfoTitle: {
+    color: '#9B9B9B',
+    fontFamily: 'MontserratRegular',
+    fontSize: 13,
+  },
+  statsInfoDetails: {
+    color: '#A4C3C6',
+    fontFamily: 'MontserratBold',
+    fontSize: 32,
+  },
+  statsInfoDetailsUnit: {
+    color: '#A4C3C6',
+    fontFamily: 'MontserratBold',
     fontSize: 20,
-    fontWeight: 'bold',
+    lineHeight: 30,
+  },
+  statsInfoDetailsUnitSquare: {
+    color: '#A4C3C6',
+    fontFamily: 'MontserratBold',
+    fontSize: 16,
+    lineHeight: 18,
+  },
+  lastWalkImgContainer: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
+  lastWalkImg: {
+    borderRadius: 13,
   },
 });
 
@@ -30,38 +128,82 @@ class Home extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <View style={styles.container}>
-        <Text style={styles.header}>Home Screen</Text>
-        <View style={styles.container}>
-          <Text style={styles.heading}>Current walks in this area</Text>
+      <ScrollView contentContainerStyle={styles.container}>
+
+        <View>
+          <Text style={styles.header}>Current Walks</Text>
           { this.props.ongoingEventsAtLocation.length
             ? this.props.ongoingEventsAtLocation.map(event => (
               <View key={event.id}>
-                <Text>
+                <Text style={styles.cardInfoText}>
                 Start: {event.startTime}. Participants: {event.participants}
                 </Text>
                 <Button title="Current (ongoing) walk" onPress={() => navigate('CurrentEventToJoin', { eventId: event.id })} />
+              </View>)) :
+            <View style={styles.cardContainer}>
+              <View style={styles.currentWalkImgContainer}>
+                <Image source={currentWalkImg} style={styles.currentWalkImg} />
               </View>
-              ))
-            : <Text>No current events in this area!</Text>
-          }
+              <View style={styles.cardInfo}>
+                <Text style={styles.cardInfoText}>6 Participants</Text>
+                <Text style={styles.cardInfoText}>Started 15min ago</Text>
+              </View>
+            </View>
+            }
         </View>
-        <View style={styles.container}>
-          <Text style={styles.heading}>Stats</Text>
-          <Text>Participants: {this.props.stats.totalParticipants}</Text>
-          <Text>Total Distance: {this.props.stats.totalDistance ? this.props.stats.totalDistance.toFixed(0) : 0}</Text>
-          <Text>Total Area Cleaned: {this.props.stats.totalArea ? this.props.stats.totalArea.toFixed(0) : 0}</Text>
+
+        <View>
+          <Text style={styles.header}>Global Statistics</Text>
+          <View style={styles.statsContainer}>
+            <View style={styles.statsInfo}>
+              <Text style={styles.statsInfoDetails}>
+                {this.props.stats.totalParticipants}
+              </Text>
+              <Text style={styles.statsInfoTitle}>Participants</Text>
+            </View>
+            <View style={styles.statsInfo}>
+              <Text style={styles.statsInfoDetails}>
+                {this.props.stats.totalDistance ? this.props.stats.totalDistance.toFixed(0) : 0}
+                <Text style={styles.statsInfoDetailsUnit}> km</Text>
+              </Text>
+              <Text style={styles.statsInfoTitle}>Total Distance</Text>
+            </View>
+            <View style={styles.statsInfo}>
+              <Text style={styles.statsInfoDetails}>
+                {this.props.stats.totalArea ? this.props.stats.totalArea.toFixed(0) : 0}
+                <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                  <Text style={styles.statsInfoDetailsUnit}> km</Text>
+                  <Text style={styles.statsInfoDetailsUnitSquare}>2</Text>
+                </View>
+              </Text>
+              <Text style={styles.statsInfoTitle}>Total Area Cleaned</Text>
+            </View>
+          </View>
         </View>
-        <View style={styles.container}>
-          <Text style={styles.heading}>Previous walks in this area</Text>
-          { this.props.pastEventsAtLocation.map(event => (
-            <Text key={event.id}>
-              End: {event.endTime}. Participant: {event.participants}
-            </Text>))
-          }
-          <Button title="Previous walk" onPress={() => this.props.navigation.navigate('FinishedEventDetail')} />
+
+        <View>
+          <Text style={styles.header}>Last Walks in this Area</Text>
+          { this.props.pastEventsAtLocation.length
+            ? this.props.pastEventsAtLocation.map(event => (
+              <View key={event.id}>
+                <Text style={styles.cardInfoText}>
+                Start: {event.startTime}. Participants: {event.participants}
+                </Text>
+                <Button title="Current (ongoing) walk" onPress={() => navigate('FinishedEventDetail', { eventId: event.id })} />
+              </View>)) :
+            <TouchableOpacity style={styles.cardContainer} onPress={() => this.props.navigation.navigate('FinishedEventDetail')}>
+              <View style={styles.lastWalkImgContainer}>
+                <Image source={lastWalkImg} style={styles.lastWalkImg} />
+              </View>
+              <View style={styles.cardInfo}>
+                <Text style={styles.cardInfoText}>11 Participants</Text>
+                <Text style={styles.cardInfoText}>6 days ago</Text>
+              </View>
+            </TouchableOpacity>
+            }
         </View>
-      </View>
+
+      </ScrollView>
     );
   }
 }
