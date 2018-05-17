@@ -7,7 +7,7 @@ import backBt from '../assets/menu/bt-back.png';
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
+    flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-start',
     position: 'absolute',
@@ -16,21 +16,25 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     backgroundColor: '#fff',
+    zIndex: -1,
   },
   backBt: {
     marginTop: 36,
     marginLeft: 16,
+    position: 'absolute',
+    zIndex: 1,
   },
   mapContainer: {
+    flex: 1,
     backgroundColor: 'grey',
     height: 400,
-    marginTop: 16,
   },
   detailsContainer: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginTop: 16,
+    marginBottom: 44,
   },
   detailsText: {
     color: '#a4c3c6',
@@ -45,6 +49,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   btContainer: {
+    height: 100,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 40,
+  },
+  startBtContainer: {
     backgroundColor: '#53ad93',
     width: 80,
     height: 80,
@@ -57,7 +69,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 50,
   },
   btText: {
     color: '#fff',
@@ -70,12 +81,15 @@ class StartConfirmation extends React.Component {
   startEvent = () => {
     this.props.createEvent(this.props.userId);
     this.props.navigation.navigate('ActiveEvent');
-  }
+  };
 
   render() {
     return (
       <View style={styles.container}>
-        <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+        <TouchableOpacity
+          style={{ zIndex: 1 }}
+          onPress={() => this.props.navigation.goBack()}
+        >
           <Image source={backBt} style={styles.backBt} />
         </TouchableOpacity>
         <View style={styles.mapContainer}>
@@ -95,9 +109,11 @@ class StartConfirmation extends React.Component {
             <Text style={styles.detailsTitle}>Area Covered</Text>
           </View>
         </View>
-        <TouchableOpacity style={styles.btContainer} onPress={this.startEvent}>
-          <Text style={styles.btText}>Start Walk</Text>
-        </TouchableOpacity>
+        <View style={styles.btContainer}>
+          <TouchableOpacity style={styles.startBtContainer} onPress={this.startEvent}>
+            <Text style={styles.btText}>Start Walk</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
