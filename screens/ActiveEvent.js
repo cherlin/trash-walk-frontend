@@ -196,11 +196,11 @@ class ActiveEvent extends React.Component {
             <Text style={styles.detailsTitle}>Time Elapsed</Text>
           </View>
           <View>
-            <Text style={styles.detailsText}>{this.props.activeEvent.snapshot.participants}</Text>
+            <Text style={styles.detailsText}>{this.props.activeEvent.snapshot ? this.props.activeEvent.snapshot.participants : '1'}</Text>
             <Text style={styles.detailsTitle}>Participants</Text>
           </View>
           <View>
-            <Text style={styles.detailsText}>{this.props.activeEvent.snapshot.area}km</Text>
+            <Text style={styles.detailsText}>{this.props.activeEvent.snapshot ? this.props.activeEvent.snapshot.area.toFixed(0) : '0'} m</Text>
             <Text style={styles.detailsTitle}>Area Covered</Text>
           </View>
         </View>

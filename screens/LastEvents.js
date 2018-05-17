@@ -68,8 +68,8 @@ class LastEvents extends React.Component {
                     imageStyle={{ borderRadius: 2 }}
                   >
                     <View style={styles.textView}>
-                      <Text style={styles.imageText}>{event.distance > 1000 ? `${(event.distance / 1000).toFixed(1)} km` : `${event.distance} m` }</Text>
-                      <Text style={styles.imageText}>{moment(event.endTime).fromNow()}</Text>
+                      <Text style={styles.imageText}>{event.distance ? `${(event.distance / 1000).toFixed(1)} km` : '' }</Text>
+                      <Text style={styles.imageText}>{event.endTime ? moment(event.endTime).fromNow() : 'Ongoing walk'}</Text>
                     </View>
                   </ImageBackground>
                 </TouchableHighlight>

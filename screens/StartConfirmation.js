@@ -95,20 +95,6 @@ class StartConfirmation extends React.Component {
         <View style={styles.mapContainer}>
           <Text>StartConfirmation Screen - Map View</Text>
         </View>
-        <View style={styles.detailsContainer}>
-          <View>
-            <Text style={styles.detailsText}>0:00</Text>
-            <Text style={styles.detailsTitle}>Time Elapsed</Text>
-          </View>
-          <View>
-            <Text style={styles.detailsText}>{this.props.activeEvent.participants}</Text>
-            <Text style={styles.detailsTitle}>Participants</Text>
-          </View>
-          <View>
-            <Text style={styles.detailsText}>{this.props.activeEvent.area}km</Text>
-            <Text style={styles.detailsTitle}>Area Covered</Text>
-          </View>
-        </View>
         <View style={styles.btContainer}>
           <TouchableOpacity style={styles.startBtContainer} onPress={this.startEvent}>
             <Text style={styles.btText}>Start Walk</Text>
@@ -121,7 +107,6 @@ class StartConfirmation extends React.Component {
 
 const mapStateToProps = state => ({
   userId: state.user.id,
-  activeEvent: state.events.activeEvent.snapshot,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -135,7 +120,6 @@ StartConfirmation.propTypes = {
     PropTypes.objectOf(PropTypes.any),
   ])).isRequired,
   userId: PropTypes.string.isRequired,
-  activeEvent: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(StartConfirmation);
