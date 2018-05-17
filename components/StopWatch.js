@@ -35,7 +35,6 @@ export default class StopWatch extends Component {
     return (
       <View>
         <Stopwatch
-          sec={true}
           start={this.props.stopwatchStart}
           reset={this.state.stopwatchReset}
           options={options}
