@@ -5,21 +5,91 @@ import { Text, View, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#fff',
+    padding: 38,
+  },
+  header: {
+    color: '#53AD93',
+    fontFamily: 'MontserratMedium',
+    fontSize: 22,
+    marginBottom: 16,
+  },
+  statsContainer: {
+    width: 304,
+    height: 470,
+    backgroundColor: '#fff',
+    borderRadius: 13,
+    shadowOpacity: 0.2,
+    shadowRadius: 30,
+    shadowColor: '#000',
+    shadowOffset: { height: 2, width: 0 },
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 30,
+    marginTop: 40,
+    marginLeft: 35,
+  },
+  statsInfo: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  statsInfoTitle: {
+    color: '#9B9B9B',
+    fontFamily: 'MontserratRegular',
+    fontSize: 13,
+  },
+  statsInfoDetails: {
+    color: '#A4C3C6',
+    fontFamily: 'MontserratBold',
+    fontSize: 50,
+  },
+  statsInfoDetailsUnit: {
+    color: '#A4C3C6',
+    fontFamily: 'MontserratBold',
+    fontSize: 30,
+    lineHeight: 30,
+  },
+  statsInfoDetailsUnitSquare: {
+    color: '#A4C3C6',
+    fontFamily: 'MontserratBold',
+    fontSize: 20,
+    lineHeight: 18,
+    paddingTop: 1,
   },
 });
 
 function Statistics(props) {
   return (
-    <View style={styles.container}>
-      <Text>Total time contributed
-        {props.stats.totalTime}
-      </Text>
-      <Text>Total distance covered
-        {props.stats.totalDist}
-      </Text>
+    <View>
+      <View style={styles.statsContainer}>
+        <View style={styles.statsInfo}>
+          <Text style={styles.statsInfoDetails}>
+            {props.stats.totalWalks}
+          </Text>
+          <Text style={styles.statsInfoTitle}>Total Walks</Text>
+        </View>
+        <View style={styles.statsInfo}>
+          <Text style={styles.statsInfoDetails}>
+            {props.stats.totalDistance}
+            <Text style={styles.statsInfoDetailsUnit}> km</Text>
+          </Text>
+          <Text style={styles.statsInfoTitle}>Total Distance</Text>
+        </View>
+        <View style={styles.statsInfo}>
+          <Text style={styles.statsInfoDetails}>
+            {props.stats.totalArea}
+            <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+              <Text style={styles.statsInfoDetailsUnit}> km</Text>
+              <Text style={styles.statsInfoDetailsUnitSquare}>2</Text>
+            </View>
+          </Text>
+          <Text style={styles.statsInfoTitle}>Total Area Cleaned</Text>
+        </View>
+      </View>
     </View>
   );
 }
