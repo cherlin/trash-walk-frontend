@@ -29,8 +29,7 @@ const events = (state = defaultState, action) => {
       return {
         ...state,
         gettingLocationEvents: false,
-        ongoingEventsAtLocation: [...action.data.activeEvents],
-        pastEventsAtLocation: [...action.data.finishedEvents],
+        pastEventsAtLocation: action.data,
       };
     case 'GET_LOCATION_EVENTS_FAILURE':
       return { ...state, gettingLocationEventsFailed: action.error };
