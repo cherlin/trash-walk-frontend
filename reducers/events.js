@@ -12,6 +12,7 @@ const defaultState = {
       distance: 0, // Distance from server, calculated on geodata.
       area: 0, // Square meters covered.
       shape: [], // Current polygon.
+      participants: '',
       startTime: '',
       endTime: '',
       EventId: '',
@@ -90,7 +91,6 @@ const events = (state = defaultState, action) => {
       };
     case 'JOIN_EVENT_FAILURE':
       return { ...state, joiningEventFailed: action.error };
-
     case 'GET_EVENT_REQUEST':
       return { ...state, gettingEvent: true };
     case 'GET_EVENT_SUCCESS':

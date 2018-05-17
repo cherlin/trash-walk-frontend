@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addEventDataToActiveEvent } from '../actions/events';
 import { SERVER_BASE_URL } from '../middlewares/api';
-
+import StopWatch from '../components/StopWatch';
 import stopBt from '../assets/buttons/bt-stop.png';
 import pauseBt from '../assets/buttons/bt-pause.png';
 
@@ -84,6 +84,7 @@ class ActiveEvent extends React.Component {
     this.state = {
       showsUserLocation: false,
       isMoving: false,
+      stopwatchStart: true,
     };
   }
 
@@ -126,17 +127,17 @@ class ActiveEvent extends React.Component {
     if (this.state.isMoving) {
       this.props.addEventDataToActiveEvent({ latitude, longitude }, odometer);
     }
-  }
+  };
 
   onUpdateResponse = (response) => {
     console.log(response);
-  }
+  };
 
   onMotionChange = (isMoving) => {
     if (isMoving) {
       this.setState({ isMoving: true });
     }
-  }
+  };
 
   setCenter({ latitude, longitude }) {
     if (!this.mapRef) { return; }
@@ -154,14 +155,15 @@ class ActiveEvent extends React.Component {
       extras: { eventId: this.props.eventId, userId: this.props.userId },
     });
     await BackgroundGeolocation.start();
-    this.setState({ showsUserLocation: true });
-  }
+    this.setState({ showsUserLocation: true, stopwatchStart: true });
+  };
 
   stopEvent = async () => {
     await BackgroundGeolocation.stop();
     await BackgroundGeolocation.removeAllListeners();
     this.props.navigation.navigate('FinishedEventToConfirm');
-  }
+    this.setState({ stopwatchStart: false });
+  };
 
   render() {
     return (
@@ -190,15 +192,15 @@ class ActiveEvent extends React.Component {
         </View>
         <View style={styles.detailsContainer}>
           <View>
-            <Text style={styles.detailsText}>0:00</Text>
+            <StopWatch stopwatchStart={this.state.stopwatchStart} />
             <Text style={styles.detailsTitle}>Time Elapsed</Text>
           </View>
           <View>
-            <Text style={styles.detailsText}>0</Text>
+            <Text style={styles.detailsText}>{this.props.activeEvent.snapshot.participants}</Text>
             <Text style={styles.detailsTitle}>Participants</Text>
           </View>
           <View>
-            <Text style={styles.detailsText}>0km</Text>
+            <Text style={styles.detailsText}>{this.props.activeEvent.snapshot.area}km</Text>
             <Text style={styles.detailsTitle}>Area Covered</Text>
           </View>
         </View>
@@ -224,6 +226,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   addEventDataToActiveEvent:
     (location, distance) => dispatch(addEventDataToActiveEvent(location, distance)),
+  pauseEvent: data => dispatch(pauseEvent(data)),
 });
 
 ActiveEvent.propTypes = {
