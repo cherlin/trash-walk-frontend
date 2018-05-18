@@ -146,7 +146,7 @@ class Home extends React.Component {
               </View>
               <View style={styles.cardInfo}>
                 <Text style={styles.cardInfoText}>6 Participants</Text>
-                <Text style={styles.cardInfoText}>Started 15min ago</Text>
+                <Text style={styles.cardInfoText}>Started 15 min ago</Text>
               </View>
             </View>
             }
@@ -163,14 +163,14 @@ class Home extends React.Component {
             </View>
             <View style={styles.statsInfo}>
               <Text style={styles.statsInfoDetails}>
-                {this.props.stats.totalDistance ? this.props.stats.totalDistance.toFixed(0) : 0}
+                {this.props.stats.totalDistance ? (this.props.stats.totalDistance / 1000).toFixed(1) : 0}
                 <Text style={styles.statsInfoDetailsUnit}> km</Text>
               </Text>
               <Text style={styles.statsInfoTitle}>Total Distance</Text>
             </View>
             <View style={styles.statsInfo}>
               <Text style={styles.statsInfoDetails}>
-                {this.props.stats.totalArea ? this.props.stats.totalArea.toFixed(0) : 0}
+                {this.props.stats.totalArea ? (this.props.stats.totalArea / 1000000).toFixed(2) : 0}
                 <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
                   <Text style={styles.statsInfoDetailsUnit}> km</Text>
                   <Text style={styles.statsInfoDetailsUnitSquare}>2</Text>

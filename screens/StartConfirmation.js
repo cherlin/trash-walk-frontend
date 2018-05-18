@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import MapView from 'react-native-maps';
 import { createEvent } from '../actions/events';
 import backBt from '../assets/menu/bt-back.png';
 
@@ -27,34 +28,19 @@ const styles = StyleSheet.create({
   mapContainer: {
     flex: 1,
     backgroundColor: 'grey',
-    height: 400,
   },
   detailsContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginTop: 16,
-    marginBottom: 44,
-  },
-  detailsText: {
-    color: '#a4c3c6',
-    fontFamily: 'MontserratSemiBold',
-    fontSize: 36,
-    textAlign: 'center',
-  },
-  detailsTitle: {
-    color: '#9b9b9b',
-    fontFamily: 'MontserratRegular',
-    fontSize: 13,
-    textAlign: 'center',
-  },
-  btContainer: {
-    height: 100,
+    height: 267,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 40,
+  },
+  btContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   startBtContainer: {
     backgroundColor: '#53ad93',
@@ -93,26 +79,25 @@ class StartConfirmation extends React.Component {
           <Image source={backBt} style={styles.backBt} />
         </TouchableOpacity>
         <View style={styles.mapContainer}>
-          <Text>StartConfirmation Screen - Map View</Text>
+          <MapView
+            ref={(c) => { this.mapRef = c; }}
+            style={{ flex: 1 }}
+            showsUserLocation
+            followsUserLocation={false}
+            scrollEnabled
+            showsMyLocationButton={false}
+            showsPointsOfInterest={false}
+            showsScale={false}
+            showsTraffic={false}
+            toolbarEnabled={false}
+          />
         </View>
         <View style={styles.detailsContainer}>
-          <View>
-            <Text style={styles.detailsText}>0:00</Text>
-            <Text style={styles.detailsTitle}>Time Elapsed</Text>
+          <View style={styles.btContainer}>
+            <TouchableOpacity style={styles.startBtContainer} onPress={this.startEvent}>
+              <Text style={styles.btText}>Start Walk</Text>
+            </TouchableOpacity>
           </View>
-          <View>
-            <Text style={styles.detailsText}>{this.props.activeEvent.participants}</Text>
-            <Text style={styles.detailsTitle}>Participants</Text>
-          </View>
-          <View>
-            <Text style={styles.detailsText}>{this.props.activeEvent.area}km</Text>
-            <Text style={styles.detailsTitle}>Area Covered</Text>
-          </View>
-        </View>
-        <View style={styles.btContainer}>
-          <TouchableOpacity style={styles.startBtContainer} onPress={this.startEvent}>
-            <Text style={styles.btText}>Start Walk</Text>
-          </TouchableOpacity>
         </View>
       </View>
     );
@@ -121,7 +106,6 @@ class StartConfirmation extends React.Component {
 
 const mapStateToProps = state => ({
   userId: state.user.id,
-  activeEvent: state.events.activeEvent.snapshot,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -135,7 +119,6 @@ StartConfirmation.propTypes = {
     PropTypes.objectOf(PropTypes.any),
   ])).isRequired,
   userId: PropTypes.string.isRequired,
-  activeEvent: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(StartConfirmation);
