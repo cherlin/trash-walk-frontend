@@ -2,20 +2,20 @@
 
 ## About
 
-Trash Walk is an app aimed at helping us make the world a cleaner place! It has two main purposes:
+Trash Walk is a mobile (iOS) app aimed at helping us make the world a cleaner place! The app is a tool for people cleaning (doing "trash walks"), and uses their phones GPS to save their walks to a shared database. This brings two main benefits:
 
-1. Document the efforts made for everyone involved (and the world at large!)
+1. It documents the efforts made, for the ones volunteering their time (and everyone else!).
 2. Make the activitity more gratifying to the trash walkers themselves by "gamification" and social functions.
 
-## Prerequisites
+## Getting started
 
 Except for the regular suspects; git, Node, npm, you need these things to work on the Trash Walk app. Follow the instructions supplied below them or on their links to get them up and running before you continue with *Installation*.
 
 * Xcode (latest version, at least >9.3). Install from App Store.
 * [Cocoapods](https://cocoapods.org) - a dependency manager for Swift and Objective-C Cocoa projects. 
-  ````$ sudo gem install cocoapods````
+  ```sudo gem install cocoapods```
 * [Expo XDE](https://www.expo.io) - the Expo development environment.
-  ````$ npm install -g exp````
+  ```npm install -g exp```
 
 **Recommended!**
 
@@ -26,17 +26,17 @@ Except for the regular suspects; git, Node, npm, you need these things to work o
 
 1. Clone this repo and enter!
 
-   ````````
-   $ git clone https://github.com/cherlin/trash-walk-frontend.git
-   $ cd trash-walk-frontend
-   ````````
+   ```bash
+   git clone https://github.com/cherlin/trash-walk-frontend.git
+   cd trash-walk-frontend
+   ```
 
 2. Install dependencies.
 
-   ```
-   $ npm install
-   $ cd ios			# ! Change into the ios folder !
-   $ pod install
+   ```bash
+   npm install
+   cd ios			# ! Change into the ios folder !
+   pod install
    ```
 
 3. While in the ios folder, run ````exp start```` to start the Expo development environment that will build the JS bundle for your app.
@@ -53,7 +53,7 @@ Except for the regular suspects; git, Node, npm, you need these things to work o
 
 * React Native (ejected from Expo)
 * Redux
-* Libraries:
+* Other dependencies:
   * [React Native Background Geolocation](https://github.com/transistorsoft/react-native-background-geolocation)
   * [React Native Maps](https://github.com/react-community/react-native-maps)
 
@@ -61,10 +61,10 @@ Except for the regular suspects; git, Node, npm, you need these things to work o
 
 ## Developers
 
-Christofer Herlin - [GitHub](https://github.com/cherlin)
+Christofer Herlin - [GitHub](https://github.com/cherlin) - [LinkedIn](https://www.linkedin.com/in/cherl/)
 
-Juliane Nagao - [GitHub](https://github.com/junagao)
+Juliane Nagao - [GitHub](https://github.com/junagao) - [LinkedIn](https://www.linkedin.com/in/junagao/)
 
-Necati Özmen - [GitHub](https://github.com/necatiozmen)
+Necati Özmen - [GitHub](https://github.com/necatiozmen) - [LinkedIn](https://www.linkedin.com/in/necatiozmen/)
 
-Marco Antonio Ghiani - [GitHub](https://github.com/marcoantonioghiani01)
+Marco Antonio Ghiani - [GitHub](https://github.com/marcoantonioghiani01) - [LinkedIn](https://www.linkedin.com/in/marcoantonioghiani/)
