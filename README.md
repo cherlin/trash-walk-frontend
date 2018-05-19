@@ -1,6 +1,9 @@
 # Trash Walk - Client (React Native)
 
-<img width="200" height="200" align="left" src="https://i.imgur.com/TcuVFSW.png" />
+<p align="center">
+<img width="400" height="400" align="left" src="https://i.imgur.com/TcuVFSW.png" />
+</p>
+
 Trash Walk is a mobile (iOS) app aimed at helping us make the world a cleaner place! The app is a tool for people cleaning (doing "trash walks"), and uses their phones GPS to save their walks to a shared database. This brings two main benefits:
 
 1. It documents the efforts made, for the ones volunteering their time (and everyone else!).
