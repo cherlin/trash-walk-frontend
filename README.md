@@ -2,10 +2,16 @@
 
 ## About
 
-Trash Walk is a mobile (iOS) app aimed at helping us make the world a cleaner place! The app is a tool for people cleaning (doing "trash walks"), and uses their phones GPS to save their walks to a shared database. This brings two main benefits:
+<div style="align: right">
+<img width="200" height="200" src="https://i.imgur.com/TcuVFSW.png" />
+</div>Trash Walk is a mobile (iOS) app aimed at helping us make the world a cleaner place! The app is a tool for people cleaning (doing "trash walks"), and uses their phones GPS to save their walks to a shared database. This brings two main benefits:
 
 1. It documents the efforts made, for the ones volunteering their time (and everyone else!).
 2. Make the activitity more gratifying to the trash walkers themselves by "gamification" and social functions.
+
+## Screenshots
+<img src="https://i.imgur.com/7UmExHS.png" alt="Splash Screen" style="width: 200px;"/>
+<img src="https://i.imgur.com/l47oLht.png" alt="Home Screen" style="width: 200px;"/>
 
 ## Getting started
 
