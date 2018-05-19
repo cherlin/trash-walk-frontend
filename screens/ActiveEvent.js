@@ -194,7 +194,7 @@ class ActiveEvent extends React.Component {
             <Polygon
               coordinates={this.props.activeEvent.snapshot.shape}
               strokeWidth={1}
-              fillColor="rgba(83,173,147,0.15)"
+              fillColor="rgba(83,173,147,0.70)"
               geodesic
               strokeColor="rgb(83,173,147)"
               zIndex={0}
