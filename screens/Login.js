@@ -109,7 +109,6 @@ class Login extends React.Component {
               buttonStyle={styles.loginButtonFb}
               onPress={this.loginUser}
             />
-            <Text style={styles.text_bottom} onPress={() => this.props.navigation.navigate('Home')}>Already have an account? Log in.</Text>
           </View>
         </View>
       </ImageBackground>

@@ -159,7 +159,7 @@ class FinishedEventToConfirm extends React.Component {
             <Polygon
               coordinates={this.props.activeEvent.snapshot.shape}
               strokeWidth={1}
-              fillColor="rgba(83,173,147,0.15)"
+              fillColor="rgba(83,173,147,0.70)"
               geodesic
               strokeColor="rgb(83,173,147)"
               zIndex={0}
@@ -176,7 +176,7 @@ class FinishedEventToConfirm extends React.Component {
               <Text style={styles.measureDesc}>Time elapsed</Text>
             </View>
             <View>
-              <Text style={styles.measureUnit}>{this.props.activeEvent.snapshot ? (this.props.activeEvent.snapshot.area / 100000).toFixed(2) : '0'} km</Text>
+              <Text style={styles.measureUnit}>{this.props.activeEvent.snapshot ? (this.props.activeEvent.snapshot.area / 1000000).toFixed(2) : '0'} km</Text>
               <Text style={styles.measureDesc}>Area covered</Text>
             </View>
           </View>
