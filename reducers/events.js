@@ -61,6 +61,9 @@ const events = (state = defaultState, action) => {
         confirmingEvent: false,
         activeEvent: {
           ...state.activeEvent,
+          snapshot: {
+            ...defaultState.activeEvent.snapshot,
+          },
           confirmed: true, // Maybe we should get the complete confirmed event back as a response.
         },
       };

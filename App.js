@@ -21,15 +21,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const store = createStore(
-  reducers,
-  compose(
-    applyMiddleware(api),
-    /* eslint no-underscore-dangle: ["error",
-    { "allow": ["__REDUX_DEVTOOLS_EXTENSION__"] } ] */
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-  ),
-);
+/* eslint-disable no-underscore-dangle */
+const middleware = [api];
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(reducers, composeEnhancers(applyMiddleware(...middleware)));
+/* eslint-enable */
 
 export default class App extends Component {
   constructor() {
