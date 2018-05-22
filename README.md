@@ -1,4 +1,4 @@
-# Trash Walk - Client (React Native)
+# Trash Walk
 
 <p align="center">
 <img width="400" height="400" src="https://i.imgur.com/TcuVFSW.png" />
@@ -53,21 +53,17 @@ Except for the regular suspects; git, Node, npm, you need these things to work o
 
 6. Build the app! (click the Play-button in the top left corner when you have picked your target in the drop-down to the right of it.)
 
-    
-
 ## Tech Stack
 
-* React Native (ejected from Expo)
-* Redux
+* [React Native](https://facebook.github.io/react-native/) (ejected from Expo)
+* [Redux](https://redux.js.org/)
 * Other dependencies:
   * [React Native Background Geolocation](https://github.com/transistorsoft/react-native-background-geolocation)
   * [React Native Maps](https://github.com/react-community/react-native-maps)
 
-
-
 ## Developers
 
-* Christofer Herlin - [GitHub](https://github.com/cherlin) - [LinkedIn] (https://www.linkedin.com/in/cherl/)
+* Christofer Herlin - [GitHub](https://github.com/cherlin) - [LinkedIn](https://www.linkedin.com/in/cherl/)
 * Juliane Nagao - [GitHub](https://github.com/junagao) - [LinkedIn](https://www.linkedin.com/in/junagao/)
 * Necati Özmen - [GitHub](https://github.com/necatiozmen) - [LinkedIn](https://www.linkedin.com/in/necatiozmen/)
 * Marco Antonio Ghiani - [GitHub](https://github.com/marcoantonioghiani01) - [LinkedIn](https://www.linkedin.com/in/marcoantonioghiani/)
